@@ -4,8 +4,14 @@
     {
         public int MySqrt(int x)
         {
-            // TODO
-            return 0;
+            var result = x / 2;
+
+            while (!(result * result <= x && (result + 1) * (result + 1) > x))
+            {
+                result = (result + (x / result)) / 2;
+            }
+
+            return result;
         }
     }
 }
