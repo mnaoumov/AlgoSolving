@@ -4,7 +4,7 @@
     {
         public int MySqrt(int x)
         {
-            var result = x / 2;
+            var result = 1;
 
             while (!(result * result <= x && (result + 1) * (result + 1) > x))
             {
