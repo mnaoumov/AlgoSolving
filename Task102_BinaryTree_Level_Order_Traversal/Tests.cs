@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Linq;
+using NUnit.Framework;
 
 namespace AlgoSolving.Task102_BinaryTree_Level_Order_Traversal
 {
@@ -7,7 +9,16 @@ namespace AlgoSolving.Task102_BinaryTree_Level_Order_Traversal
         [Test]
         public void AcceptanceTest()
         {
-            var root = CreateTreeRoot(3, 9, 20, null, null, 15, 7);
+            var root = new TreeNode(3)
+            {
+                left = new TreeNode(9),
+                right = new TreeNode(20)
+                {
+                    left = new TreeNode(15),
+                    right = new TreeNode(7)
+                }
+            };
+
             var expectedResult = new[]
             {
                 new[] {3},
@@ -16,11 +27,6 @@ namespace AlgoSolving.Task102_BinaryTree_Level_Order_Traversal
             };
 
             Assert.That(new Solution().LevelOrder(root), Is.EquivalentTo(expectedResult));
-        }
-
-        private static TreeNode CreateTreeRoot(params int?[] values)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
