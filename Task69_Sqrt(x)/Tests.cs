@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 
 namespace AlgoSolving
 {
@@ -20,6 +21,12 @@ namespace AlgoSolving
         public void Avoid_dividing_by_zero()
         {
             Assert.That(() => new Solution().MySqrt(1), Throws.Nothing);
+        }
+
+        [Test, Timeout(1000)]
+        public void No_timeout()
+        {
+            Assert.That(new Solution().MySqrt(2147395600), Is.EqualTo(46340));
         }
     }
 }
