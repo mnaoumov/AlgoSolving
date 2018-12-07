@@ -1,23 +1,17 @@
-﻿using System;
-
-namespace AlgoSolving
+﻿namespace AlgoSolving
 {
     public class Solution
     {
         public int MySqrt(int x)
         {
-            double temp = x / 2.0;
-            int floor;
-            int ceil;
+            var result = 1;
 
-            do
+            while (!(result * result <= x && (result + 1) * (result + 1) > x))
             {
-                floor = (int) Math.Floor(temp);
-                ceil = floor + 1;
-                temp = (temp + (x / temp)) / 2;
-            } while (floor * floor > x || ceil * ceil <= x);
+                result = (result + (x / result)) / 2;
+            }
 
-            return floor;
+            return result;
         }
     }
 }
