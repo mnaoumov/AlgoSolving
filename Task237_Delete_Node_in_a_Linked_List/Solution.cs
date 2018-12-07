@@ -12,7 +12,14 @@
     {
         public void DeleteNode(ListNode node)
         {
-            // TODO
+            while (node.next.next != null)
+            {
+                node.val = node.next.val;
+                node = node.next;
+            }
+
+            node.val = node.next.val;
+            node.next = null;
         }
     }
 }
