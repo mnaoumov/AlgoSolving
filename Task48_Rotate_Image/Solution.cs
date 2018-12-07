@@ -4,7 +4,7 @@
     {
         public void Rotate(int[,] matrix)
         {
-            int n = matrix.Length;
+            int n = matrix.GetLength(0);
 
             // i,j -> n-1-j,i
 
