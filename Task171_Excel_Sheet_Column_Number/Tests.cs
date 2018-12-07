@@ -21,5 +21,11 @@ namespace AlgoSolving.Task171_Excel_Sheet_Column_Number
         {
             Assert.That(new Solution().TitleToNumber("ZY"), Is.EqualTo(701));
         }
+
+        [Test]
+        public void Support_more_than_two_characters()
+        {
+            Assert.That(new Solution().TitleToNumber("AAA"), Is.EqualTo(703));
+        }
     }
 }
