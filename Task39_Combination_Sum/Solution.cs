@@ -8,10 +8,14 @@ namespace AlgoSolving.Task39_Combination_Sum
         public IList<IList<int>> CombinationSum(int[] candidates, int target)
         {
             if (target < 0)
+            {
                 return new IList<int>[0];
+            }
 
             if (target == 0)
+            {
                 return new IList<int>[] {new int[0]};
+            }
 
             List<IList<int>> result = new List<IList<int>>();
             foreach (var candidate in candidates)
