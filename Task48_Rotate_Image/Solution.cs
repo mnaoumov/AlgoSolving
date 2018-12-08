@@ -25,7 +25,7 @@
 
                     for (int k = 0; k < cycleLength; k++)
                     {
-                        matrix[iCycle, jCycle] = cycleValues[(k - 1) % cycleLength];
+                        matrix[iCycle, jCycle] = cycleValues[(k + 1) % cycleLength];
                     }
                 }
             }
