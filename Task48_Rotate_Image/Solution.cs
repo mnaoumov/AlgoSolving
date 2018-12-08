@@ -16,16 +16,22 @@
                     int[] cycleValues = new int[cycleLength];
                     int iCycle = i;
                     int jCycle = j;
+
+                    void UpdateCycleVariables()
+                    {
+                        (iCycle, jCycle) = (n - 1 - jCycle, iCycle);
+                    }
+
                     for (int k = 0; k < cycleLength; k++)
                     {
                         cycleValues[k] = matrix[iCycle, jCycle];
-                        iCycle = n - 1 - jCycle;
-                        jCycle = iCycle;
+                        UpdateCycleVariables();
                     }
 
                     for (int k = 0; k < cycleLength; k++)
                     {
                         matrix[iCycle, jCycle] = cycleValues[(k + 1) % cycleLength];
+                        UpdateCycleVariables();
                     }
                 }
             }
