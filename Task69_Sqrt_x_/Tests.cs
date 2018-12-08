@@ -1,7 +1,6 @@
-﻿using System.Threading;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace AlgoSolving
+namespace AlgoSolving.Task69_Sqrt_x_
 {
     public class Tests
     {
