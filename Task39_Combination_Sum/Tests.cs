@@ -7,7 +7,7 @@ namespace AlgoSolving.Task39_Combination_Sum
         [Test]
         public void AcceptanceTest1()
         {
-            Assert.That(new Solution().CombinationSum(new[] { 2, 3, 6, 7 }, 7), Is.EqualTo(new[]
+            Assert.That(new Solution().CombinationSum(new[] { 2, 3, 6, 7 }, 7), Is.EquivalentTo(new[]
             {
                 new[] {7},
                 new[] {2, 2, 3}
@@ -17,7 +17,7 @@ namespace AlgoSolving.Task39_Combination_Sum
         [Test]
         public void AcceptanceTest2()
         {
-            Assert.That(new Solution().CombinationSum(new[] { 2, 3, 5 }, 8), Is.EqualTo(new[]
+            Assert.That(new Solution().CombinationSum(new[] { 2, 3, 5 }, 8), Is.EquivalentTo(new[]
             {
                 new[] {2, 2, 2, 2},
                 new[] {2, 3, 3},
