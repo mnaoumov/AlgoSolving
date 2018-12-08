@@ -8,9 +8,11 @@
 
             // i,j -> n-1-j,i
 
-            for (int i = 0; i < n / 2; i++)
+            var middleRowInclusive = (n - 1) / 2;
+            var middleRowExclusive = n / 2 - 1;
+            for (int i = 0; i <= middleRowInclusive; i++)
             {
-                for (int j = 0; j < n / 2; j++)
+                for (int j = 0; j <= middleRowExclusive; j++)
                 {
                     const int cycleLength = 4;
                     int[] cycleValues = new int[cycleLength];
