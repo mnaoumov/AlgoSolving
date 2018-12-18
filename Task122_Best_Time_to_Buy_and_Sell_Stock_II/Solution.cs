@@ -9,12 +9,26 @@
 
             for (int i = 0; i < prices.Length; i++)
             {
-                bool priceStartsToIncrease = i + 1 < prices.Length && prices[i] < prices[i + 1];
 
-                if (hasStockToSell ^ priceStartsToIncrease)
+                if (!hasStockToSell)
                 {
-                    result += (hasStockToSell ? 1 : -1) * prices[i];
-                    hasStockToSell = !hasStockToSell;
+                    bool isLocalMinimum = i + 1 < prices.Length && prices[i] < prices[i + 1];
+
+                    if (isLocalMinimum)
+                    {
+                        hasStockToSell = true;
+                        result -= prices[i];
+                    }
+                }
+                else
+                {
+                    bool isLocalMaximum = i + 1 == prices.Length || prices[i] > prices[i + 1];
+
+                    if (isLocalMaximum)
+                    {
+                        hasStockToSell = false;
+                        result += prices[i];
+                    }
                 }
             }
 

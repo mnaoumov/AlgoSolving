@@ -1,13 +1,16 @@
-﻿using System.Linq;
-
-namespace AlgoSolving.Task171_Excel_Sheet_Column_Number
+﻿namespace AlgoSolving.Task171_Excel_Sheet_Column_Number
 {
     public class Solution
     {
         public int TitleToNumber(string s)
         {
             const int lettersCount = 26;
-            return s.Aggregate(0, (current, letter) => current * lettersCount + TitleToNumber(letter));
+            int result = 0;
+            foreach (var letter in s)
+            {
+                result = result * lettersCount + TitleToNumber(letter);
+            }
+            return result;
         }
 
         private static int TitleToNumber(char letter)

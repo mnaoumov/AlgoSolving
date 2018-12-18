@@ -7,6 +7,7 @@
             int n = matrix.GetLength(0);
 
             // i,j -> n-1-j,i
+            // n-1-j,i <- i,j
 
             var middleRowInclusive = (n - 1) / 2;
             var middleRowExclusive = n / 2 - 1;
@@ -15,25 +16,16 @@
                 for (int j = 0; j <= middleRowExclusive; j++)
                 {
                     const int cycleLength = 4;
-                    int[] cycleValues = new int[cycleLength];
                     int iCycle = i;
                     int jCycle = j;
-
-                    void UpdateCycleVariables()
-                    {
-                        (iCycle, jCycle) = (n - 1 - jCycle, iCycle);
-                    }
+                    int value = matrix[iCycle, jCycle];
 
                     for (int k = 0; k < cycleLength; k++)
                     {
-                        cycleValues[k] = matrix[iCycle, jCycle];
-                        UpdateCycleVariables();
-                    }
-
-                    for (int k = 0; k < cycleLength; k++)
-                    {
-                        matrix[iCycle, jCycle] = cycleValues[(k + 1) % cycleLength];
-                        UpdateCycleVariables();
+                        (iCycle, jCycle) = (jCycle, n - 1 - iCycle);
+                        var nextValue = matrix[iCycle, jCycle];
+                        matrix[iCycle, jCycle] = value;
+                        value = nextValue;
                     }
                 }
             }
