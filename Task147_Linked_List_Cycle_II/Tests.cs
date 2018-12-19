@@ -43,5 +43,11 @@ namespace AlgoSolving.Task147_Linked_List_Cycle_II
         {
             Assert.That(new Solution().DetectCycle(new ListNode(1)), Is.EqualTo(null));
         }
+
+        [Test]
+        public void Work_for_empty_list()
+        {
+            Assert.That(new Solution().DetectCycle(null), Is.EqualTo(null));
+        }
     }
 }
