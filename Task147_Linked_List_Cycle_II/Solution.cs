@@ -17,6 +17,11 @@
     {
         public ListNode DetectCycle(ListNode head)
         {
+            if (head == null)
+            {
+                return null;
+            }
+
             var slowNodeCrawler = head;
             var fastNodeCrawler = head.next;
 
