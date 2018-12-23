@@ -54,7 +54,7 @@ namespace AlgoSolving.Task394_Decode_Strings
             }
 
             public int RepeatCount { get; set; }
-            public string Text { get; set; }
+            public string Text { get; set; } = "";
 
             public ParsingContext NestedContext => _lazyNestedContext.Value;
             private Lazy<ParsingContext> _lazyNestedContext;
