@@ -39,7 +39,6 @@ namespace AlgoSolving.Task394_Decode_Strings
 
         private class ParsingContext
         {
-            private ParsingContext _nestedContext;
             public ParsingContext Parent { get; private set; }
 
             public ParsingContext()
