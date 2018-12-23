@@ -19,7 +19,7 @@ namespace AlgoSolving.Task394_Decode_Strings
         [Test]
         public void AcceptanceTest3()
         {
-            Assert.That(new Solution().DecodeString("2[abc]3[cd]ef"), Is.EqualTo("abcabccdcdef"));
+            Assert.That(new Solution().DecodeString("2[abc]3[cd]ef"), Is.EqualTo("abcabccdcdcdef"));
         }
     }
 }
