@@ -21,5 +21,11 @@ namespace AlgoSolving.Task394_Decode_Strings
         {
             Assert.That(new Solution().DecodeString("2[abc]3[cd]ef"), Is.EqualTo("abcabccdcdcdef"));
         }
+
+        [Test]
+        public void For_empty_string_return_itself()
+        {
+            Assert.That(new Solution().DecodeString(""), Is.EqualTo(""));
+        }
     }
 }
