@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgoSolving.Task621_Task_Scheduler
@@ -19,44 +20,93 @@ namespace AlgoSolving.Task621_Task_Scheduler
             }
 
 
+            var sortedTaskCountPairs = new SortedSet<TaskCountPair>();
+
+            foreach (var kvp in taskCounts)
+            {
+                sortedTaskCountPairs.Add(new TaskCountPair(kvp.Key, kvp.Value));
+            }
+
             var result = 0;
             var queue = new Queue<char>(n);
             const char idleTask = ' ';
-            const int idleTaskFakeCount = 0;
+            var idleTaskPair = new TaskCountPair(idleTask, 0);
 
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
                 queue.Enqueue(idleTask);
             }
 
-            int itemsLeft = tasks.Length;
-
-            while (itemsLeft > 0)
+            while (sortedTaskCountPairs.Any())
             {
-                var taskWithMaximumCount = taskCounts
-                    .Where(kvp => !queue.Contains(kvp.Key))
-                    .DefaultIfEmpty(new KeyValuePair<char, int>(idleTask, idleTaskFakeCount))
-                    .OrderByDescending(kvp => kvp.Value)
-                    .Select(kvp => kvp.Key)
-                    .FirstOrDefault();
+                var maxCountTaskPair = sortedTaskCountPairs.FirstOrDefault(pair => !queue.Contains(pair.Task)) ?? idleTaskPair;
 
-                queue.Enqueue(taskWithMaximumCount);
+                queue.Enqueue(maxCountTaskPair.Task);
                 queue.Dequeue();
 
-                if (taskWithMaximumCount != idleTask)
+                if (!maxCountTaskPair.Equals(idleTaskPair))
                 {
-                    taskCounts[taskWithMaximumCount]--;
-                    if (taskCounts[taskWithMaximumCount] == 0)
+                    sortedTaskCountPairs.Remove(maxCountTaskPair);
+                    if (maxCountTaskPair.Count > 1)
                     {
-                        taskCounts.Remove(taskWithMaximumCount);
+                        sortedTaskCountPairs.Add(new TaskCountPair(maxCountTaskPair.Task, maxCountTaskPair.Count - 1));
                     }
-                    itemsLeft--;
                 }
 
                 result++;
             }
 
             return result;
+        }
+
+        private class TaskCountPair : IComparable<TaskCountPair>
+        {
+            public TaskCountPair(char task, int count)
+            {
+                Task = task;
+                Count = count;
+            }
+
+            public char Task { get; }
+            public int Count { get; }
+
+            public bool Equals(TaskCountPair other)
+            {
+                return Task == other.Task && Count == other.Count;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is TaskCountPair other && Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return (Task.GetHashCode() * 397) ^ Count;
+                }
+            }
+
+            public int CompareTo(TaskCountPair other)
+            {
+                if (ReferenceEquals(this, other))
+                {
+                    return 0;
+                }
+
+                if (ReferenceEquals(null, other))
+                {
+                    return 1;
+                }
+
+                return ToTuple(this).CompareTo(ToTuple(other));
+            }
+
+            private static IComparable ToTuple(TaskCountPair pair)
+            {
+                return Tuple.Create(-pair.Count, pair.Task);
+            }
         }
     }
 }
