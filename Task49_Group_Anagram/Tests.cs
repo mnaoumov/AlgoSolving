@@ -9,9 +9,9 @@ namespace AlgoSolving.Task49_Group_Anagram
         {
             Assert.That(new Solution().GroupAnagrams(new[] { "eat", "tea", "tan", "ate", "nat", "bat" }), Is.EqualTo(new[]
             {
-                new[]{"ate","eat","tea"},
-                new[]{"nat","tan"},
-                new []{"bat"}
+                new[] {"ate", "eat", "tea"},
+                new[] {"nat", "tan"},
+                new[] {"bat"}
             }));
         }
     }
