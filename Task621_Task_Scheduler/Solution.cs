@@ -46,6 +46,10 @@ namespace AlgoSolving.Task621_Task_Scheduler
                 if (taskWithMaximumCount != idleTask)
                 {
                     taskCounts[taskWithMaximumCount]--;
+                    if (taskCounts[taskWithMaximumCount] == 0)
+                    {
+                        taskCounts.Remove(taskWithMaximumCount);
+                    }
                     itemsLeft--;
                 }
 
