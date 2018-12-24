@@ -4,23 +4,35 @@
     {
         public void SortColors(int[] nums)
         {
-            var counts = new int[3];
-            foreach (var num in nums)
-            {
-                counts[num]++;
-            }
+            int starting1Index = nums.Length;
+            int starting2Index = nums.Length;
 
-            var lastColor = 0;
-            var lastColorIndexShift = 0;
-            for (int i = 0; i < nums.Length; i++)
+            int i = 0;
+            while (i < starting1Index)
             {
-                while (i >= counts[lastColor] + lastColorIndexShift)
+                var num = nums[i];
+                if (num == 0)
                 {
-                    lastColor++;
-                    lastColorIndexShift = i;
+                    i++;
                 }
-
-                nums[i] = lastColor;
+                else if (num == 1)
+                {
+                    starting1Index--;
+                    var t = nums[starting1Index];
+                    nums[starting1Index] = 1;
+                    nums[i] = t;
+                }
+                else if (num == 2)
+                {
+                    starting2Index--;
+                    var t = nums[starting2Index];
+                    nums[starting2Index] = 2;
+                    nums[i] = t;
+                    if (starting1Index > starting2Index)
+                    {
+                        starting1Index = starting2Index;
+                    }
+                }
             }
         }
     }
