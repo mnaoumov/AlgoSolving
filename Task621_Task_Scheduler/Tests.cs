@@ -16,5 +16,11 @@ namespace AlgoSolving.Task621_Task_Scheduler
         {
             Assert.That(new Solution().LeastInterval(new[] { 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G' }, 2), Is.EqualTo(16));
         }
+
+        [Test]
+        public void For_zero_cooling_should_output_length()
+        {
+            Assert.That(new Solution().LeastInterval(new[] { 'A', 'A', 'A', 'B', 'B', 'B' },0), Is.EqualTo(6));
+        }
     }
 }
