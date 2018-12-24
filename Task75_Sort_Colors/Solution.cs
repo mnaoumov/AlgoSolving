@@ -14,7 +14,7 @@
             var lastColorIndexShift = 0;
             for (int i = 0; i < nums.Length; i++)
             {
-                if (i >= counts[lastColor] + lastColorIndexShift)
+                while (i >= counts[lastColor] + lastColorIndexShift)
                 {
                     lastColor++;
                     lastColorIndexShift = i;
