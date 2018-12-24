@@ -9,11 +9,9 @@
 
             for (int i = 0; i < nums.Length; i++)
             {
-                sums[i, i] = nums[i];
-
-                for (int j = i + 1; j < nums.Length; j++)
+                for (int j = i; j < nums.Length; j++)
                 {
-                    sums[i, j] = sums[i, j - 1] + nums[j];
+                    sums[i, j] = (j >= 1 ? sums[i, j - 1] : 0) + nums[j];
 
                     if (sums[i, j] == k)
                     {
