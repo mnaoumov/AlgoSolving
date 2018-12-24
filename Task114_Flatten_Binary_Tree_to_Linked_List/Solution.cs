@@ -13,7 +13,28 @@
     {
         public void Flatten(TreeNode root)
         {
+            var node = root;
+            while (node != null)
+            {
+                if (node.left != null)
+                {
+                    GetRightmostNode(node.left).right = node.right;
+                    node.right = node.left;
+                    node.left = null;
+                }
+                node = node.right;
+            }
+        }
 
+        private static TreeNode GetRightmostNode(TreeNode root)
+        {
+            var node = root;
+            while (node.right != null)
+            {
+                node = node.right;
+            }
+
+            return node;
         }
     }
 }
