@@ -22,9 +22,15 @@ namespace AlgoSolving.Task416_Partition_Equal_Subset_Sum
                 foreach (var possibleSum in possibleSums.ToArray())
                 {
                     var nextPossibleSum = possibleSum + num;
+
                     if (nextPossibleSum == targetSum)
                     {
                         return true;
+                    }
+
+                    if (nextPossibleSum > targetSum)
+                    {
+                        continue;
                     }
 
                     possibleSums.Add(nextPossibleSum);
