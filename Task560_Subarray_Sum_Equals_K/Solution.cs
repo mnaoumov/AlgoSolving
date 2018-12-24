@@ -5,18 +5,17 @@
         public int SubarraySum(int[] nums, int k)
         {
             var result = 0;
+            var sums = new int[nums.Length, nums.Length];
 
             for (int i = 0; i < nums.Length; i++)
             {
-                for (int j = i; j < nums.Length; j++)
-                {
-                    var sum = 0;
-                    for (int m = i; m <= j; m++)
-                    {
-                        sum += nums[m];
-                    }
+                sums[i, i] = nums[i];
 
-                    if (sum == k)
+                for (int j = i + 1; j < nums.Length; j++)
+                {
+                    sums[i, j] = sums[i, j - 1] + nums[j];
+
+                    if (sums[i, j] == k)
                     {
                         result++;
                     }
