@@ -11,21 +11,21 @@ namespace AlgoSolving.Task394_Decode_Strings
             {
                 if (char.IsDigit(symbol))
                 {
-                    context.NestedContext.RepeatCount = 10 * context.NestedContext.RepeatCount + (symbol - '0');
+                    context.RepeatCount = 10 * context.RepeatCount + (symbol - '0');
                 }
                 else if (symbol == '[')
                 {
-                    context = context.NestedContext;
+                    context = new ParsingContext(context);
                 }
                 else if (symbol == ']')
                 {
                     var parent = context.Parent;
-                    for (int i = 0; i < context.RepeatCount; i++)
+                    for (int i = 0; i < parent.RepeatCount; i++)
                     {
                         parent.Text += context.Text;
                     }
 
-                    parent.ResetNestedContext();
+                    parent.RepeatCount = 0;
                     context = parent;
                 }
                 else
@@ -39,24 +39,15 @@ namespace AlgoSolving.Task394_Decode_Strings
 
         private class ParsingContext
         {
-            public ParsingContext Parent { get; private set; }
-
-            public ParsingContext()
+            public ParsingContext(ParsingContext parent = null)
             {
-                ResetNestedContext();
+                Parent = parent;
             }
 
-            public void ResetNestedContext()
-            {
-                _lazyNestedContext =
-                    new Lazy<ParsingContext>(() => new ParsingContext() {Parent = this});
-            }
+            public ParsingContext Parent { get; }
 
             public int RepeatCount { get; set; }
             public string Text { get; set; } = "";
-
-            public ParsingContext NestedContext => _lazyNestedContext.Value;
-            private Lazy<ParsingContext> _lazyNestedContext;
         }
     }
 }
