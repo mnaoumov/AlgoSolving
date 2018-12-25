@@ -1,19 +1,20 @@
-﻿48. Rotate Image
-https://leetcode.com/problems/rotate-image/
+﻿https://leetcode.com/problems/rotate-image/
+
+# 48. Rotate Image
 
 Medium
 
-
-You are given an n x n 2D matrix representing an image.
+You are given an *n* x *n* 2D matrix representing an image.
 
 Rotate the image by 90 degrees (clockwise).
 
-Note:
+**Note:**
 
-You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+You have to rotate the image [**in-place**](https://en.wikipedia.org/wiki/In-place_algorithm), which means you have to modify the input 2D matrix directly. **DO NOT** allocate another 2D matrix and do the rotation.
 
-Example 1:
+**Example 1:**
 
+```
 Given input matrix = 
 [
   [1,2,3],
@@ -27,8 +28,11 @@ rotate the input matrix in-place such that it becomes:
   [8,5,2],
   [9,6,3]
 ]
-Example 2:
+```
 
+**Example 2:**
+
+```
 Given input matrix =
 [
   [ 5, 1, 9,11],
@@ -44,3 +48,4 @@ rotate the input matrix in-place such that it becomes:
   [12, 6, 8, 9],
   [16, 7,10,11]
 ]
+```

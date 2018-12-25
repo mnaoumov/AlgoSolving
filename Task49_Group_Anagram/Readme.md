@@ -1,12 +1,14 @@
 ﻿https://leetcode.com/problems/group-anagrams/
 
-49. Group Anagrams
+# 49. Group Anagrams
+
 Medium
 
 Given an array of strings, group anagrams together.
 
-Example:
+**Example:**
 
+```
 Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
 Output:
 [
@@ -14,7 +16,9 @@ Output:
   ["nat","tan"],
   ["bat"]
 ]
-Note:
+```
 
-All inputs will be in lowercase.
-The order of your output does not matter.
+**Note:**
+
+- All inputs will be in lowercase.
+- The order of your output does not matter.
