@@ -1,10 +1,40 @@
-﻿namespace AlgoSolving.Task279_Perfect_Squares
+﻿using System;
+using System.Collections.Generic;
+
+namespace AlgoSolving.Task279_Perfect_Squares
 {
     public class Solution
     {
         public int NumSquares(int n)
         {
-            return 0;
+            var cache = new Dictionary<int, int>();
+            return NumSquares(n, cache);
+        }
+
+        private int NumSquares(int n, Dictionary<int, int> cache)
+        {
+            if (!cache.ContainsKey(n))
+            {
+                cache[n] = NumSquaresInternal(n, cache);
+            }
+
+            return cache[n];
+        }
+
+        private int NumSquaresInternal(int n, Dictionary<int, int> cache)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+
+            var result = int.MaxValue;
+            for (int i = 1; i * i <= n; i++)
+            {
+                result = Math.Min(result, NumSquares(n - i * i, cache) + 1);
+            }
+
+            return result;
         }
     }
 }
