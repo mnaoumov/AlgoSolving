@@ -51,7 +51,7 @@
                 // C = (M + 1, L) - (R, R)
 
                 return SearchMatrix(matrix, target, topLeftRow, middleColumn + 1, middleRow, bottomRightColumn) // B
-                       && SearchMatrix(matrix, target, middleRow + 1, topLeftColumn, bottomRightRow, bottomRightColumn); // C
+                       || SearchMatrix(matrix, target, middleRow + 1, topLeftColumn, bottomRightRow, bottomRightColumn); // C
             }
 
             //    L   M     R
@@ -72,7 +72,7 @@
             // C = (L, L) - (M - 1, R)
 
             return SearchMatrix(matrix, target, middleRow, topLeftColumn, bottomRightRow, middleColumn - 1) // B
-                   && SearchMatrix(matrix, target, topLeftRow, topLeftColumn, middleRow - 1, bottomRightColumn); // C
+                   || SearchMatrix(matrix, target, topLeftRow, topLeftColumn, middleRow - 1, bottomRightColumn); // C
         }
     }
 }
