@@ -59,7 +59,7 @@
 
             for (var middleSubarrayIndex = minPossibleMiddleSubarrayIndex; middleSubarrayIndex <= maxPossibleMiddleSubarrayIndex; middleSubarrayIndex++)
             {
-                var leftSubarrayIndex = indicesForTheBestSumOnLeft[middleSubarrayIndex - 1];
+                var leftSubarrayIndex = indicesForTheBestSumOnLeft[middleSubarrayIndex - k];
                 var rightSubarrayIndex = indicesForTheBestSumOnRight[middleSubarrayIndex + k];
                 var sum = kSums[leftSubarrayIndex] + kSums[middleSubarrayIndex] + kSums[rightSubarrayIndex];
                 if (sum > bestSum)
