@@ -6,12 +6,33 @@ namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
     {
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
-            if (new[] { null, p, q }.Contains(root))
+            return LowestCommonAncestor(root, p, q, pFound: false);
+        }
+
+        private TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q, bool pFound)
+        {
+            if (root == null)
             {
-                return root;
+                return null;
             }
 
-            return LowestCommonAncestor(root.left, p, q) ?? LowestCommonAncestor(root.right, p, q) ?? root;
+            if (root == p)
+            {
+                pFound = true;
+            }
+
+            if (root == q)
+            {
+                if (pFound)
+                {
+                    return p;
+                }
+
+                (p, q) = (q, p);
+                pFound = true;
+            }
+
+            return LowestCommonAncestor(root.left, p, q, pFound) ?? LowestCommonAncestor(root.right, p, q, pFound) ?? root;
         }
     }
 }
