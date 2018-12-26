@@ -7,21 +7,10 @@ namespace AlgoSolving.Task279_Perfect_Squares
     {
         public int NumSquares(int n)
         {
-            var cache = new Dictionary<int, int>();
-            return NumSquares(n, cache);
+            return CalculateWithCache<int, int>(NumSquares)(n);
         }
 
-        private int NumSquares(int n, Dictionary<int, int> cache)
-        {
-            if (!cache.ContainsKey(n))
-            {
-                cache[n] = NumSquaresInternal(n, cache);
-            }
-
-            return cache[n];
-        }
-
-        private int NumSquaresInternal(int n, Dictionary<int, int> cache)
+        private static int NumSquares(int n, Func<int, int> calculateWithCache)
         {
             if (n == 0)
             {
@@ -31,10 +20,27 @@ namespace AlgoSolving.Task279_Perfect_Squares
             var result = int.MaxValue;
             for (int i = 1; i * i <= n; i++)
             {
-                result = Math.Min(result, NumSquares(n - i * i, cache) + 1);
+                result = Math.Min(result, calculateWithCache(n - i * i) + 1);
             }
 
             return result;
+        }
+
+        private static Func<TArgument, TResult> CalculateWithCache<TArgument, TResult>(Func<TArgument, Func<TArgument, TResult>, TResult> calculate)
+        {
+            var cache = new Dictionary<TArgument, TResult>();
+
+            TResult CalculateWithCache(TArgument argument)
+            {
+                if (!cache.ContainsKey(argument))
+                {
+                    cache[argument] = calculate(argument, CalculateWithCache);
+                }
+
+                return cache[argument];
+            }
+
+            return CalculateWithCache;
         }
     }
 }
