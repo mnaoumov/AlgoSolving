@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoSolving.Task56_Merge_Intervarls
 {
@@ -6,7 +7,21 @@ namespace AlgoSolving.Task56_Merge_Intervarls
     {
         public IList<Interval> Merge(IList<Interval> intervals)
         {
-            return null;
+            var results = intervals.OrderBy(x => x.start).ThenBy(x => x.end).ToList();
+
+            for (int i = 1; i < results.Count; i++)
+            {
+                var previous = results[i - 1];
+                var current = results[i];
+                if (current.start <= previous.end)
+                {
+                    results[i - 1] = new Interval(previous.start, current.end);
+                    results.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return results;
         }
     }
 }
