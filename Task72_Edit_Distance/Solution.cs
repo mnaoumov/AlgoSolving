@@ -13,6 +13,11 @@ namespace AlgoSolving.Task72_Edit_Distance
             {
                 for (int j = 0; j < word2.Length; j++)
                 {
+                    if (i == 0 && j == 0)
+                    {
+                        continue;
+                    }
+
                     var distanceCandidates = new List<int>();
 
                     if (i > 0)
@@ -29,10 +34,6 @@ namespace AlgoSolving.Task72_Edit_Distance
                     {
                         var replacementRequired = word1[i - 1] != word2[j - 1];
                         distanceCandidates.Add(prefixesCache[i - 1, j - 1] + (replacementRequired ? 1 : 0));
-                    }
-                    else
-                    {
-                        distanceCandidates.Add(0);
                     }
 
                     prefixesCache[i, j] = distanceCandidates.Min();
