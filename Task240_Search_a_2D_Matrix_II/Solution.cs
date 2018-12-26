@@ -6,23 +6,23 @@
         {
             var m = matrix.GetLength(0);
             var n = matrix.GetLength(1);
-            return SearchMatrix(matrix, target, 0, 0, m - 1, n - 1);
+            return SearchMatrix(matrix, target, new MatrixIndex(0, 0, m - 1, n - 1));
         }
 
-        private bool SearchMatrix(int[,] matrix, int target, int topLeftRow, int topLeftColumn, int bottomRightRow, int bottomRightColumn)
+        private bool SearchMatrix(int[,] matrix, int target, MatrixIndex matrixIndex)
         {
-            if (bottomRightRow < topLeftRow || bottomRightColumn < topLeftColumn)
+            if (matrixIndex.BottomRightRow < matrixIndex.TopLeftRow || matrixIndex.BottomRightColumn < matrixIndex.TopLeftColumn)
             {
                 return false;
             }
 
-            if (matrix[topLeftRow, topLeftColumn] > target || matrix[bottomRightRow, bottomRightColumn] < target)
+            if (matrix[matrixIndex.TopLeftRow, matrixIndex.TopLeftColumn] > target || matrix[matrixIndex.BottomRightRow, matrixIndex.BottomRightColumn] < target)
             {
                 return false;
             }
 
-            int middleRow = (topLeftRow + bottomRightRow) / 2;
-            int middleColumn = (topLeftColumn + bottomRightColumn) / 2;
+            int middleRow = (matrixIndex.TopLeftRow + matrixIndex.BottomRightRow) / 2;
+            int middleColumn = (matrixIndex.TopLeftColumn + matrixIndex.BottomRightColumn) / 2;
 
             var middleValue = matrix[middleRow, middleColumn];
 
@@ -49,28 +49,52 @@
                 // B = (L, M + 1) - (M, R)
                 // C = (M + 1, L) - (R, R)
 
-                return SearchMatrix(matrix, target, topLeftRow, middleColumn + 1, middleRow, bottomRightColumn) // B
-                       || SearchMatrix(matrix, target, middleRow + 1, topLeftColumn, bottomRightRow, bottomRightColumn); // C
+                var matrixIndexB = new MatrixIndex(matrixIndex.TopLeftRow, middleColumn + 1, middleRow, matrixIndex.BottomRightColumn);
+                var matrixIndexC = new MatrixIndex(middleRow + 1, matrixIndex.TopLeftColumn, matrixIndex.BottomRightRow, matrixIndex.BottomRightColumn);
+
+                return SearchMatrix(matrix, target, matrixIndexB) || SearchMatrix(matrix, target, matrixIndexC);
             }
+            else
+            {
+                //    L   M   R
+                // L: C C C C C
+                //    C C C C C
+                // M: B B A A A
+                //    B B A A A
+                // R: B B A A A
 
-            //    L   M   R
-            // L: C C C C C
-            //    C C C C C
-            // M: B B A A A
-            //    B B A A A
-            // R: B B A A A
+                // L - top-left
+                // M - middle
+                // R - bottom-right
 
-            // L - top-left
-            // M - middle
-            // R - bottom-right
+                // A values are too large. Skip them
+                // A = (M, M) - (R, R)
+                // B = (M, L) - (R, M - 1)
+                // C = (L, L) - (M - 1, R)
 
-            // A values are too large. Skip them
-            // A = (M, M) - (R, R)
-            // B = (M, L) - (R, M - 1)
-            // C = (L, L) - (M - 1, R)
+                var matrixIndexB = new MatrixIndex(middleRow, matrixIndex.TopLeftColumn, matrixIndex.BottomRightRow,
+                    middleColumn - 1);
+                var matrixIndexC = new MatrixIndex(matrixIndex.TopLeftRow, matrixIndex.TopLeftColumn, middleRow - 1,
+                    matrixIndex.BottomRightColumn);
 
-            return SearchMatrix(matrix, target, middleRow, topLeftColumn, bottomRightRow, middleColumn - 1) // B
-                   || SearchMatrix(matrix, target, topLeftRow, topLeftColumn, middleRow - 1, bottomRightColumn); // C
+                return SearchMatrix(matrix, target, matrixIndexB) || SearchMatrix(matrix, target, matrixIndexC);
+            }
+        }
+
+        private class MatrixIndex
+        {
+            public int TopLeftRow { get; }
+            public int TopLeftColumn { get; }
+            public int BottomRightRow { get; }
+            public int BottomRightColumn { get; }
+
+            public MatrixIndex(int topLeftRow, int topLeftColumn, int bottomRightRow, int bottomRightColumn)
+            {
+                TopLeftRow = topLeftRow;
+                TopLeftColumn = topLeftColumn;
+                BottomRightRow = bottomRightRow;
+                BottomRightColumn = bottomRightColumn;
+            }
         }
     }
 }
