@@ -9,7 +9,7 @@ namespace AlgoSolving.Task200_Number_of_Islands
         {
             Assert.That(new Solution().NumIslands(new[,]
             {
-                {'1', '1', '1', '1', '0'}, 
+                {'1', '1', '1', '1', '0'},
                 {'1', '1', '0', '1', '0'},
                 {'1', '1', '0', '0', '0'},
                 {'0', '0', '0', '0', '0'}
