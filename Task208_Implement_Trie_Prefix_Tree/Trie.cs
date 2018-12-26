@@ -2,6 +2,8 @@
 {
     public class Trie
     {
+        private readonly Node root = new Node();
+
         /// <summary>
         /// Initialize your data structure here.
         /// </summary>
@@ -15,7 +17,21 @@
         /// </summary>
         public void Insert(string word)
         {
+            var node = root;
+            foreach (var letter in word)
+            {
+                var letterIndex = letter - 'a';
+                var letterNode = node.letterNodes[letterIndex];
 
+                if (letterNode == null)
+                {
+                    node.letterNodes[letterIndex] = letterNode = new Node();
+                }
+
+                node = letterNode;
+            }
+
+            node.Inserted = true;
         }
 
         /// <summary>
@@ -23,7 +39,21 @@
         /// </summary>
         public bool Search(string word)
         {
-            return false;
+            var node = root;
+            foreach (var letter in word)
+            {
+                var letterIndex = letter - 'a';
+                var letterNode = node.letterNodes[letterIndex];
+
+                if (letterNode == null)
+                {
+                    return false;
+                }
+
+                node = letterNode;
+            }
+
+            return node.Inserted;
         }
 
         /// <summary>
@@ -31,7 +61,28 @@
         /// </summary>
         public bool StartsWith(string prefix)
         {
-            return false;
+            var node = root;
+            foreach (var letter in prefix)
+            {
+                var letterIndex = letter - 'a';
+                var letterNode = node.letterNodes[letterIndex];
+
+                if (letterNode == null)
+                {
+                    return false;
+                }
+
+                node = letterNode;
+            }
+
+            return true;
+
+        }
+
+        private class Node
+        {
+            public Node[] letterNodes = new Node[26];
+            public bool Inserted { get; set; }
         }
     }
 }
