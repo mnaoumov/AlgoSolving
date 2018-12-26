@@ -47,9 +47,16 @@
                 var letterIndex = letter - firstLetter;
                 var letterNode = node.LetterNodes[letterIndex];
 
-                if (letterNode == null && createIfMissing)
+                if (letterNode == null)
                 {
-                    node.LetterNodes[letterIndex] = letterNode = new Node();
+                    if (createIfMissing)
+                    {
+                        node.LetterNodes[letterIndex] = letterNode = new Node();
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
 
                 node = letterNode;
