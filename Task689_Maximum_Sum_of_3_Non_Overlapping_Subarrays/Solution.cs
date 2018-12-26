@@ -49,7 +49,7 @@
                 var previousBestIndex = indicesForTheBestSumOnRight[i + 1];
                 var previousBestKSum = kSums[previousBestIndex];
                 var currentKSum = kSums[i];
-                indicesForTheBestSumOnLeft[i] = currentKSum >= previousBestKSum ? i : previousBestIndex;
+                indicesForTheBestSumOnRight[i] = currentKSum >= previousBestKSum ? i : previousBestIndex;
             }
             
             var bestSum = int.MinValue;
