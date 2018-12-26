@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoSolving.Task207_Course_Schedule
 {
@@ -18,25 +19,22 @@ namespace AlgoSolving.Task207_Course_Schedule
                 dependencies[prerequisites[i, 0]].Add(prerequisites[i, 1]);
             }
 
-            var checkedDependencies = new bool[numCourses, numCourses];
-
             for (int course = 0; course < numCourses; course++)
             {
-                var prerequisiteSet = new HashSet<int> { course };
-                var courseToCheck = course;
+                var dependencyChain = new HashSet<int> { course };
+                int courseToCheck = course;
 
-                foreach (var dependency in dependencies[courseToCheck])
+                while (dependencies[courseToCheck].Any())
                 {
-                    if (!checkedDependencies[courseToCheck, dependency])
+                    int dependency = dependencies[courseToCheck].First();
+                    if (dependencyChain.Contains(dependency))
                     {
-                        if (prerequisiteSet.Contains(dependency))
-                        {
-                            return false;
-                        }
-                        checkedDependencies[courseToCheck, dependency] = true;
-                        prerequisiteSet.Add(dependency);
-                        courseToCheck = dependency;
+                        return false;
                     }
+
+                    dependencies[courseToCheck].Remove(dependency);
+                    dependencyChain.Add(dependency);
+                    courseToCheck = dependency;
                 }
             }
 
