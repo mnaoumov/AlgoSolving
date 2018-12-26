@@ -67,6 +67,7 @@
                     bestLeftSubarrayIndex = leftSubarrayIndex;
                     bestMiddleSubarrayIndex = middleSubarrayIndex;
                     bestRightSubarrayIndex = rightSubarrayIndex;
+                    bestSum = sum;
                 }
             }
 
