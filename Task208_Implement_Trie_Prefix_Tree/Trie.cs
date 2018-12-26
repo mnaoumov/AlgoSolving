@@ -17,21 +17,8 @@
         /// </summary>
         public void Insert(string word)
         {
-            var node = root;
-            foreach (var letter in word)
-            {
-                var letterIndex = letter - 'a';
-                var letterNode = node.LetterNodes[letterIndex];
-
-                if (letterNode == null)
-                {
-                    node.LetterNodes[letterIndex] = letterNode = new Node();
-                }
-
-                node = letterNode;
-            }
-
-            node.Inserted = true;
+            var wordNode = GetWordNode(word, createIfMissing: true);
+            wordNode.Inserted = true;
         }
 
         /// <summary>
@@ -39,21 +26,8 @@
         /// </summary>
         public bool Search(string word)
         {
-            var node = root;
-            foreach (var letter in word)
-            {
-                var letterIndex = letter - 'a';
-                var letterNode = node.LetterNodes[letterIndex];
-
-                if (letterNode == null)
-                {
-                    return false;
-                }
-
-                node = letterNode;
-            }
-
-            return node.Inserted;
+            var wordNode = GetWordNode(word, createIfMissing: false);
+            return wordNode != null && wordNode.Inserted;
         }
 
         /// <summary>
@@ -61,22 +35,26 @@
         /// </summary>
         public bool StartsWith(string prefix)
         {
+            return GetWordNode(prefix, createIfMissing: false) != null;
+        }
+
+        private Node GetWordNode(string word, bool createIfMissing)
+        {
             var node = root;
-            foreach (var letter in prefix)
+            foreach (var letter in word)
             {
                 var letterIndex = letter - 'a';
                 var letterNode = node.LetterNodes[letterIndex];
 
-                if (letterNode == null)
+                if (letterNode == null && createIfMissing)
                 {
-                    return false;
+                    node.LetterNodes[letterIndex] = letterNode = new Node();
                 }
 
                 node = letterNode;
             }
 
-            return true;
-
+            return node;
         }
 
         private class Node
