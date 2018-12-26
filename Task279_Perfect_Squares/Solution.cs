@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AlgoSolving.Task279_Perfect_Squares
 {
@@ -7,40 +6,18 @@ namespace AlgoSolving.Task279_Perfect_Squares
     {
         public int NumSquares(int n)
         {
-            return CalculateWithCache<int, int>(NumSquares)(n);
-        }
+            var cache = new int[n + 1];
 
-        private static int NumSquares(int n, Func<int, int> calculateWithCache)
-        {
-            if (n == 0)
+            for (int k = 1; k <= n; k++)
             {
-                return 0;
-            }
-
-            var result = int.MaxValue;
-            for (int i = 1; i * i <= n; i++)
-            {
-                result = Math.Min(result, calculateWithCache(n - i * i) + 1);
-            }
-
-            return result;
-        }
-
-        private static Func<TArgument, TResult> CalculateWithCache<TArgument, TResult>(Func<TArgument, Func<TArgument, TResult>, TResult> calculate)
-        {
-            var cache = new Dictionary<TArgument, TResult>();
-
-            TResult CalculateWithCache(TArgument argument)
-            {
-                if (!cache.ContainsKey(argument))
+                cache[k] = int.MaxValue;
+                for (int i = 1; i * i <= k; i++)
                 {
-                    cache[argument] = calculate(argument, CalculateWithCache);
-                }
-
-                return cache[argument];
+                    cache[k] = Math.Min(cache[k], cache[k - i * i] + 1);
+                }   
             }
 
-            return CalculateWithCache;
+            return cache[n];
         }
     }
 }
