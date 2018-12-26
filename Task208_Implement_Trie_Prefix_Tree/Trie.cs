@@ -21,11 +21,11 @@
             foreach (var letter in word)
             {
                 var letterIndex = letter - 'a';
-                var letterNode = node.letterNodes[letterIndex];
+                var letterNode = node.LetterNodes[letterIndex];
 
                 if (letterNode == null)
                 {
-                    node.letterNodes[letterIndex] = letterNode = new Node();
+                    node.LetterNodes[letterIndex] = letterNode = new Node();
                 }
 
                 node = letterNode;
@@ -43,7 +43,7 @@
             foreach (var letter in word)
             {
                 var letterIndex = letter - 'a';
-                var letterNode = node.letterNodes[letterIndex];
+                var letterNode = node.LetterNodes[letterIndex];
 
                 if (letterNode == null)
                 {
@@ -65,7 +65,7 @@
             foreach (var letter in prefix)
             {
                 var letterIndex = letter - 'a';
-                var letterNode = node.letterNodes[letterIndex];
+                var letterNode = node.LetterNodes[letterIndex];
 
                 if (letterNode == null)
                 {
@@ -81,7 +81,7 @@
 
         private class Node
         {
-            public Node[] letterNodes = new Node[26];
+            public readonly Node[] LetterNodes = new Node[26];
             public bool Inserted { get; set; }
         }
     }
