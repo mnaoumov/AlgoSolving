@@ -6,6 +6,11 @@ namespace AlgoSolving.Task17_Letter_Combinations_of_a_Phone_Number
     {
         public IList<string> LetterCombinations(string digits)
         {
+            if (digits == "")
+            {
+                return new List<string>();
+            }
+
             var mapping = new Dictionary<char, string>
             {
                 ['2'] = "abc",
