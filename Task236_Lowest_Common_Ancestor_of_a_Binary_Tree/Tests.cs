@@ -4,6 +4,15 @@ namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
 {
     public class Tests
     {
+        [SetUp]
+        public void BeforeEachTest()
+        {
+            TestContext.AddFormatter<TreeNode>(val =>
+            {
+                var treeNode = (TreeNode) val;
+                return $"{treeNode.val}";
+            });
+        }
         [Test]
         public void AcceptanceTest1()
         {
