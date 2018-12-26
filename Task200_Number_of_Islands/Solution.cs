@@ -54,7 +54,7 @@ namespace AlgoSolving.Task200_Number_of_Islands
 
             int GetIslandNumber(int i, int j)
             {
-                if (i == 0 || j == 0)
+                if (i < 0 || j < 0)
                 {
                     return 0;
                 }
