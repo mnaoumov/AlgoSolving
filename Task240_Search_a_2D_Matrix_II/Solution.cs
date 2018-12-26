@@ -33,13 +33,12 @@
 
             if (middleValue < target)
             {
-                //    L   M     R
-                // L: A A A B B B
-                //    A A A B B B
-                // M: A A A B B B
-                //    C C C C C C
-                //    C C C C C C
-                // R: C C C C C C
+                //    L   M   R
+                // L: A A A B B
+                //    A A A B B
+                // M: A A A B B
+                //    C C C C C
+                // R: C C C C C
 
                 // L - top-left
                 // M - middle
@@ -54,13 +53,12 @@
                        || SearchMatrix(matrix, target, middleRow + 1, topLeftColumn, bottomRightRow, bottomRightColumn); // C
             }
 
-            //    L   M     R
-            // L: C C C C C C
-            //    C C C C C C
-            // M: B B A A A A
-            //    B B A A A A
-            //    B B A A A A
-            // R: B B A A A A
+            //    L   M   R
+            // L: C C C C C
+            //    C C C C C
+            // M: B B A A A
+            //    B B A A A
+            // R: B B A A A
 
             // L - top-left
             // M - middle
