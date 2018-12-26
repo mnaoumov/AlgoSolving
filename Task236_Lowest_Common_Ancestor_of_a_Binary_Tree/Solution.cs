@@ -13,9 +13,10 @@ namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
             var pAncestors = GetAncestors(parents, p);
             var qAncestors = GetAncestors(parents, q);
 
-            int i;
-            for (i = 0; i < pAncestors.Count && i < qAncestors.Count && pAncestors[i] == qAncestors[i]; i++)
+            var i = 0;
+            while (i < pAncestors.Count && i < qAncestors.Count && pAncestors[i] == qAncestors[i])
             {
+                i++;
             }
 
             return pAncestors[i - 1];
