@@ -27,5 +27,16 @@ namespace AlgoSolving.Task200_Number_of_Islands
                 {'0', '0', '0', '1', '1'}
             }), Is.EqualTo(3));
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            Assert.That(new Solution().NumIslands(new[,]
+            {
+                {'1', '0', '1', '1', '1'},
+                {'1', '0', '1', '0', '1'},
+                {'1', '1', '1', '0', '1'}
+            }), Is.EqualTo(1));
+        }
     }
 }
