@@ -4,6 +4,16 @@ namespace AlgoSolving.Task56_Merge_Intervarls
 {
     public class Tests
     {
+        [SetUp]
+        public void BeforeEachTests()
+        {
+            TestContext.AddFormatter<Interval>(val =>
+            {
+                var interval = (Interval) val;
+                return $"[{interval.start}, {interval.end}]";
+            });
+        }
+
         [Test]
         public void AcceptanceTest1()
         {
