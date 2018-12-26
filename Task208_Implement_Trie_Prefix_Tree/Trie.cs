@@ -43,7 +43,8 @@
             var node = root;
             foreach (var letter in word)
             {
-                var letterIndex = letter - 'a';
+                const char firstLetter = 'a';
+                var letterIndex = letter - firstLetter;
                 var letterNode = node.LetterNodes[letterIndex];
 
                 if (letterNode == null && createIfMissing)
@@ -59,7 +60,8 @@
 
         private class Node
         {
-            public readonly Node[] LetterNodes = new Node[26];
+            private const int LettersInAlphabet = 26;
+            public readonly Node[] LetterNodes = new Node[LettersInAlphabet];
             public bool Inserted { get; set; }
         }
     }
