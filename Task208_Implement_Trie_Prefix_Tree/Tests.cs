@@ -25,5 +25,20 @@ namespace AlgoSolving.Task208_Implement_Trie_Prefix_Tree
             trie.Insert("app");
             Assert.That(trie.Search("app"), Is.True);
         }
+
+        [Test]
+        public void Should_not_fail()
+        {
+            Assert.That(() =>
+            {
+                var trie = new Trie();
+                trie.Search("ab");
+                trie.Insert("ab");
+                trie.Search("ab");
+                trie.Search("ab");
+                trie.StartsWith("ab");
+                trie.StartsWith("ab");
+            }, Throws.Nothing);
+        }
     }
 }
