@@ -9,9 +9,9 @@ namespace AlgoSolving.Task72_Edit_Distance
         {
             var prefixesCache = new int[word1.Length + 1, word2.Length + 1];
 
-            for (int i = 0; i < word1.Length; i++)
+            for (int i = 0; i <= word1.Length; i++)
             {
-                for (int j = 0; j < word2.Length; j++)
+                for (int j = 0; j <= word2.Length; j++)
                 {
                     if (i == 0 && j == 0)
                     {
