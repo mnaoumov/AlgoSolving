@@ -1,41 +1,49 @@
-﻿namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
+﻿using System.Collections.Generic;
+
+namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
 {
     public class Solution
     {
         public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
-            return LowestCommonAncestor(root, p, q, parent: null, pFound: false);
+            var parents = new Dictionary<TreeNode, TreeNode>();
+
+            FillParents(parents, root, null);
+
+            var pAncestors = GetAncestors(parents, p);
+            var qAncestors = GetAncestors(parents, q);
+
+            int i;
+            for (i = 0; i < pAncestors.Count && i < qAncestors.Count && pAncestors[i] == qAncestors[i]; i++)
+            {
+            }
+
+            return pAncestors[i - 1];
         }
 
-        private TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q, TreeNode parent, bool pFound)
+        private IList<TreeNode> GetAncestors(Dictionary<TreeNode, TreeNode> parents, TreeNode node)
         {
-            if (root == null)
+            var ancestors = new List<TreeNode>();
+            while (node != null)
             {
-                return null;
+                ancestors.Insert(0, node);
+                node = parents[node];
             }
 
-            if (root == p)
+            return ancestors;
+        }
+
+        private void FillParents(Dictionary<TreeNode, TreeNode> parents, TreeNode node, TreeNode parent)
+        {
+            if (node == null)
             {
-                pFound = true;
+                return;
             }
 
-            if (root == q)
-            {
-                if (pFound)
-                {
-                    return p;
-                }
+            parents[node] = parent;
 
-                (p, q) = (q, p);
-                pFound = true;
-            }
-
-            return LowestCommonAncestor(root.left, p, q, root, pFound)
-                   ?? LowestCommonAncestor(root.right, p, q, root, pFound)
-                   ?? (pFound && parent != null && parent.left == root &&
-                       LowestCommonAncestor(parent.right, p, q, parent, pFound: true) != null
-                       ? parent
-                       : null);
+            FillParents(parents, node.left, node);
+            FillParents(parents, node.right, node);
         }
     }
 }
