@@ -15,6 +15,8 @@ namespace AlgoSolving.Task200_Number_of_Islands
                 [0] = 0
             };
 
+            int lastIslandNumber = 0;
+
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -36,8 +38,9 @@ namespace AlgoSolving.Task200_Number_of_Islands
                         else
                         {
                             result++;
-                            islandNumbers[i, j] = result;
-                            islandNumberMappings[result] = result;
+                            lastIslandNumber++;
+                            islandNumbers[i, j] = lastIslandNumber;
+                            islandNumberMappings[lastIslandNumber] = lastIslandNumber;
                         }
 
                         if (topIslandNumber != 0 && leftIslandNumber != 0 && topIslandNumber != leftIslandNumber)
