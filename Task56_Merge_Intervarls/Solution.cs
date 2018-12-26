@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgoSolving.Task56_Merge_Intervarls
@@ -15,7 +16,7 @@ namespace AlgoSolving.Task56_Merge_Intervarls
                 var current = results[i];
                 if (current.start <= previous.end)
                 {
-                    results[i - 1] = new Interval(previous.start, current.end);
+                    results[i - 1] = new Interval(previous.start, Math.Max(previous.end, current.end));
                     results.RemoveAt(i);
                     i--;
                 }
