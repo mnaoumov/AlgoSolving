@@ -1,4 +1,6 @@
-﻿namespace AlgoSolving.Task200_Number_of_Islands
+﻿using System;
+
+namespace AlgoSolving.Task200_Number_of_Islands
 {
     public class Solution
     {
@@ -16,28 +18,22 @@
                     const char land = '1';
                     if (grid[i, j] == land)
                     {
-                        result++;
+                        if (i == 0 && j == 0)
+                        {
+                            result = 1;
+                            islandNumber[0, 0] = 1;
+                            continue;
+                        }
 
-                        var isLandOnTop = i > 0 && grid[i - 1, j] == land;
+                        var topIslandNumber = i > 0 ? islandNumber[i - 1, j] : 0;
+                        var leftIslandNumber = j > 0 ? islandNumber[i, j - 1] : 0;
 
-                        if (isLandOnTop)
+                        islandNumber[i, j] = Math.Max(topIslandNumber, leftIslandNumber);
+
+                        if (topIslandNumber != 0 && leftIslandNumber != 0 && topIslandNumber != leftIslandNumber)
                         {
                             result--;
                         }
-
-                        var isLandOnLeft = j > 0 && grid[i, j - 1] == land;
-
-                        if (isLandOnLeft)
-                        {
-                            result--;
-                        }
-
-                        if (isLandOnLeft && isLandOnTop && islandNumber[i - 1, j] == islandNumber[i, j - 1])
-                        {
-                            result++;
-                        }
-
-                        islandNumber[i, j] = result;
                     }
                 }
             }
