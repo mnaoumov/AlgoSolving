@@ -64,5 +64,22 @@ namespace AlgoSolving.Task236_Lowest_Common_Ancestor_of_a_Binary_Tree
             };
             Assert.That(new Solution().LowestCommonAncestor(root, p, q), Is.EqualTo(lca));
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            TreeNode p;
+            TreeNode q;
+            TreeNode lca;
+            TreeNode root = lca = new TreeNode(1)
+            {
+                left = new TreeNode(2)
+                {
+                    right = p = new TreeNode(4)
+                },
+                right = q = new TreeNode(3)
+            };
+            Assert.That(new Solution().LowestCommonAncestor(root, p, q), Is.EqualTo(lca));
+        }
     }
 }
