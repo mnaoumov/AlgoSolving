@@ -44,6 +44,19 @@ namespace AlgoSolving.Task56_Merge_Intervarls
             }).Using<Interval, Interval>(IntervalComparer));
         }
 
+        [Test]
+        public void Smaller_interval_should_disappear()
+        {
+            Assert.That(new Solution().Merge(new[]
+            {
+                new Interval(1, 4),
+                new Interval(2, 3)
+            }), Is.EquivalentTo(new[]
+            {
+                new Interval(1, 4)
+            }).Using<Interval, Interval>(IntervalComparer));
+        }
+
         private static bool IntervalComparer(Interval interval1, Interval interval2)
         {
             return interval1.start == interval2.start && interval1.end == interval2.end;
