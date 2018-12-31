@@ -6,23 +6,20 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
     {
         public int[] SearchRange(int[] nums, int target)
         {
-            var firstIndex = SearchRange(nums, target, x => x < target);
-            var lastIndex = SearchRange(nums, target, x => x <= target);
+            const int notFoundIndex = -1;
 
-            return new[] { firstIndex, lastIndex };
-        }
+            int firstIndex = notFoundIndex;
+            var lastIndex = notFoundIndex;
 
-        private static int SearchRange(int[] nums, int target, Func<int, bool> leftPartCondition)
-        {
             var left = 0;
-            var right = nums.Length - 1;
+            var right = nums.Length;
 
             while (left < right)
             {
                 var middle = (left + right) / 2;
-                if (leftPartCondition(nums[middle]))
+                if (nums[middle] < target)
                 {
-                    left = middle;
+                    left = middle + 1;
                 }
                 else
                 {
@@ -32,11 +29,31 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
 
             if (nums[left] == target)
             {
-                return left;
+                firstIndex = left;
             }
 
-            const int notFoundIndex = -1;
-            return notFoundIndex;
+            left = 0;
+            right = nums.Length;
+
+            while (left < right)
+            {
+                var middle = (left + right) / 2;
+                if (nums[middle] <= target)
+                {
+                    left = middle;
+                }
+                else
+                {
+                    right = middle - 1;
+                }
+            }
+
+            if (nums[left] == target)
+            {
+                lastIndex = left;
+            }
+
+            return new[] { firstIndex, lastIndex };
         }
     }
 }
