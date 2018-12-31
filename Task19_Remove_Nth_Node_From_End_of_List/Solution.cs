@@ -1,10 +1,30 @@
-﻿namespace AlgoSolving.Task19_Remove_Nth_Node_From_End_of_List
+﻿using System.Collections.Generic;
+
+namespace AlgoSolving.Task19_Remove_Nth_Node_From_End_of_List
 {
     public class Solution
     {
         public ListNode RemoveNthFromEnd(ListNode head, int n)
         {
-            return null;
+            var queue = new Queue<ListNode>(n + 1);
+
+            for (int i = 0; i < n + 1; i++)
+            {
+                queue.Enqueue(null);
+            }
+
+            var node = head;
+            while (node != null)
+            {
+                queue.Dequeue();
+                queue.Enqueue(node);
+                node = node.next;
+            }
+
+            var newHead = queue.Dequeue();
+            newHead.next = newHead.next.next;
+
+            return newHead;
         }
     }
 }
