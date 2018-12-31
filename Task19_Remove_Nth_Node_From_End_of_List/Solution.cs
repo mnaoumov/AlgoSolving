@@ -22,6 +22,11 @@ namespace AlgoSolving.Task19_Remove_Nth_Node_From_End_of_List
             }
 
             var previous = queue.Dequeue();
+            if (previous == null)
+            {
+                return head.next;
+            }
+
             previous.next = previous.next.next;
 
             return head;
