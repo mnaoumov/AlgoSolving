@@ -29,7 +29,7 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
             var left = 0;
             var right = nums.Length;
 
-            while (left < right)
+            while (right - left > 1)
             {
                 var middle = (left + right) / 2;
 
