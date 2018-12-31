@@ -4,7 +4,7 @@
     {
         public ListNode SortList(ListNode head)
         {
-            if (head == null || head.next == null)
+            if (head?.next == null)
             {
                 return head;
             }
@@ -19,7 +19,7 @@
             return mergedSortedHead;
         }
 
-        private ListNode MergeSorted(ListNode sortedHead1, ListNode sortedHead2)
+        private static ListNode MergeSorted(ListNode sortedHead1, ListNode sortedHead2)
         {
             if (sortedHead1 == null)
             {
@@ -46,7 +46,7 @@
             var slowPointer = head;
             var fastPointer = head.next;
 
-            while (fastPointer != null && fastPointer.next != null)
+            while (fastPointer?.next != null)
             {
                 slowPointer = slowPointer.next;
                 fastPointer = fastPointer.next.next;
