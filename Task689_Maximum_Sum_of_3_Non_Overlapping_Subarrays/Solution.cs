@@ -31,7 +31,7 @@
             var maxPossibleRightSubarrayIndex = n - k;
 
             var indicesForTheBestSumOnLeft = new int[maxPossibleLeftSubarrayIndex + 1];
-            indicesForTheBestSumOnLeft[0] = 0;
+            indicesForTheBestSumOnLeft[minPossibleLeftSubarrayIndex] = minPossibleLeftSubarrayIndex;
 
             for (int i = minPossibleLeftSubarrayIndex + 1; i <= maxPossibleLeftSubarrayIndex; i++)
             {
