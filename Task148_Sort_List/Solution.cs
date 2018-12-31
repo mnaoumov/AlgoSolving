@@ -46,7 +46,7 @@
             var slowPointer = head;
             var fastPointer = head.next;
 
-            while (fastPointer.next != null)
+            while (fastPointer != null && fastPointer.next != null)
             {
                 slowPointer = slowPointer.next;
                 fastPointer = fastPointer.next.next;
