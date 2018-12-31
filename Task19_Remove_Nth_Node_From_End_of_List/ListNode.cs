@@ -3,7 +3,8 @@
     /// <summary>
     /// Definition for singly-linked list.
     /// </summary>
-    public class ListNode {
+    public class ListNode
+    {
         public int val;
         public ListNode next;
 
