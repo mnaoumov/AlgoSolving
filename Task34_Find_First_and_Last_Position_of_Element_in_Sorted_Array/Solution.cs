@@ -23,13 +23,13 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 }
                 else
                 {
-                    right = middle;
+                    right = middle - 1;
                 }
             }
 
-            if (nums[left] == target)
+            if (nums[left + 1] == target)
             {
-                firstIndex = left;
+                firstIndex = left + 1;
             }
 
             left = 0;
@@ -40,7 +40,7 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 var middle = (left + right) / 2;
                 if (nums[middle] <= target)
                 {
-                    left = middle;
+                    left = middle + 1;
                 }
                 else
                 {
