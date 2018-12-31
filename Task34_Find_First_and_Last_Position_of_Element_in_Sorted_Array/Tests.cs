@@ -21,5 +21,11 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
         {
             Assert.That(new Solution().SearchRange(new int[] { }, 0), Is.EqualTo(new[] { -1, -1 }));
         }
+
+        [Test]
+        public void First_element_index_should_be_0()
+        {
+            Assert.That(new Solution().SearchRange(new[] { 0 }, 0), Is.EqualTo(new[] { 0, 0 }));
+        }
     }
 }
