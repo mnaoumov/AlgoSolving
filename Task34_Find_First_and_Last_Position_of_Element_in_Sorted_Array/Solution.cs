@@ -43,6 +43,12 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 }
             }
 
+            if (!condition(left))
+            {
+                const int notFoundIndex = -1;;
+                return notFoundIndex;
+            }
+
             return left;
         }
     }
