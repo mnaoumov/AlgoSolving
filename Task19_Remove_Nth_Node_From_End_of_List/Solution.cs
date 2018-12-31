@@ -21,10 +21,10 @@ namespace AlgoSolving.Task19_Remove_Nth_Node_From_End_of_List
                 node = node.next;
             }
 
-            var newHead = queue.Dequeue();
-            newHead.next = newHead.next.next;
+            var previous = queue.Dequeue();
+            previous.next = previous.next.next;
 
-            return newHead;
+            return head;
         }
     }
 }
