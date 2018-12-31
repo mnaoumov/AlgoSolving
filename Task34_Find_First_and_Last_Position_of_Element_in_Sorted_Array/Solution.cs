@@ -22,11 +22,11 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 var middle = (left + right) / 2;
                 if (leftPartCondition(nums[middle]))
                 {
-                    right = middle;
+                    left = middle;
                 }
                 else
                 {
-                    left = middle;
+                    right = middle;
                 }
             }
 
