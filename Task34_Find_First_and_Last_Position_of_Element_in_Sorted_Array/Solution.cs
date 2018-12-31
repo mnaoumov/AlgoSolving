@@ -11,12 +11,12 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
             var firstIndex = FindLast(nums, x => x < target) + 1;
             var lastIndex = FindLast(nums, x => x <= target);
 
-            if (nums[firstIndex] != target)
+            if (firstIndex >= nums.Length || nums[firstIndex] != target)
             {
                 firstIndex = notFoundIndex;
             }
 
-            if (nums[lastIndex] != target)
+            if (lastIndex >= nums.Length || nums[lastIndex] != target)
             {
                 lastIndex = notFoundIndex;
             }
