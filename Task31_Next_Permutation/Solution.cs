@@ -27,8 +27,8 @@ namespace AlgoSolving.Task31_Next_Permutation
 
             if (lastLocalMaximum > 0)
             {
-                nums[lastLocalMaximum - 1] = copy[nums.Length - 1];
-                nums[lastLocalMaximum] = copy[lastLocalMaximum - 1];
+                (nums[lastLocalMaximum - 1], nums[lastLocalMaximum]) =
+                    (nums[lastLocalMaximum], nums[lastLocalMaximum - 1]);
             }
         }
     }
