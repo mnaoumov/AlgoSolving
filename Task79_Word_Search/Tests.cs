@@ -42,5 +42,16 @@ namespace AlgoSolving.Task79_Word_Search
 
             Assert.That(new Solution().Exist(board, "ABCB"), Is.False);
         }
+
+        [Test]
+        public void AcceptanceTest4()
+        {
+            var board = new[,]
+            {
+                {'A'}
+            };
+
+            Assert.That(new Solution().Exist(board, "A"), Is.True);
+        }
     }
 }
