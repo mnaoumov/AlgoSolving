@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace AlgoSolving.Task31_Next_Permutation
+﻿namespace AlgoSolving.Task31_Next_Permutation
 {
     public class Solution
     {
