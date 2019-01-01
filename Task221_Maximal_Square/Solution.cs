@@ -27,7 +27,7 @@ namespace AlgoSolving.Task221_Maximal_Square
                     var previousSquareSize = leftTopSquareSizes[i + 1, j + 1];
 
                     var areLeftAndTopSidesFull =
-                        Enumerable.Range(i + 1, previousSquareSize).All(k => matrix[k, j] == squareSymbol) ||
+                        Enumerable.Range(i + 1, previousSquareSize).All(k => matrix[k, j] == squareSymbol) &&
                         Enumerable.Range(j + 1, previousSquareSize).All(k => matrix[i, k] == squareSymbol);
 
                     leftTopSquareSizes[i, j] = previousSquareSize + (areLeftAndTopSidesFull ? 1 : 0);
