@@ -19,8 +19,10 @@ namespace AlgoSolving.Task152_Maximum_Product_Subarray
             for (int i = n - 2; i >= 0; i--)
             {
                 var value = nums[i];
-                lastMaxSuffixProduct = Math.Max(value, value * (value >= 0 ? lastMaxSuffixProduct : lastMinSuffixProduct));
-                lastMinSuffixProduct = Math.Min(value, value * (value >= 0 ? lastMinSuffixProduct : lastMaxSuffixProduct));
+                var nextMax = Math.Max(value, value * (value >= 0 ? lastMaxSuffixProduct : lastMinSuffixProduct));
+                var nextMin = Math.Min(value, value * (value >= 0 ? lastMinSuffixProduct : lastMaxSuffixProduct));
+                lastMaxSuffixProduct = nextMax;
+                lastMinSuffixProduct = nextMin;
                 globalMaxProduct = Math.Max(globalMaxProduct, lastMaxSuffixProduct);
             }
 
