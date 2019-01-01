@@ -11,7 +11,7 @@
 
             var lastLocalMaximum = nums.Length - 1;
 
-            while (lastLocalMaximum > 0 && nums[lastLocalMaximum] < nums[lastLocalMaximum - 1])
+            while (lastLocalMaximum > 0 && nums[lastLocalMaximum] <= nums[lastLocalMaximum - 1])
             {
                 lastLocalMaximum--;
             }
