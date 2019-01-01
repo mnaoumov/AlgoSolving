@@ -1,10 +1,31 @@
-﻿namespace AlgoSolving.Task152_Maximum_Product_Subarray
+﻿using System;
+
+namespace AlgoSolving.Task152_Maximum_Product_Subarray
 {
     public class Solution
     {
         public int MaxProduct(int[] nums)
         {
-            return 0;
+            var n = nums.Length;
+            if (n == 0)
+            {
+                return 0;
+            }
+
+            var maxSuffixProducts = new int[n];
+            var minSuffixProducts = new int[n];
+
+            maxSuffixProducts[n - 1] = nums[n - 1];
+            minSuffixProducts[n - 1] = nums[n - 1];
+
+            for (int i = n - 2; i >= 0; i--)
+            {
+                var value = nums[i];
+                maxSuffixProducts[i] = Math.Max(value, value * (value >= 0 ? maxSuffixProducts : minSuffixProducts)[i + 1]);
+                minSuffixProducts[i] = Math.Min(value, value * (value >= 0 ? minSuffixProducts : maxSuffixProducts)[i + 1]);
+            }
+
+            return maxSuffixProducts[0];
         }
     }
 }
