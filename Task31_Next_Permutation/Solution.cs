@@ -16,14 +16,14 @@
                 lastLocalMaximum--;
             }
 
-            for (int i = lastLocalMaximum; i < (nums.Length + lastLocalMaximum) / 2; i++)
-            {
-                Swap(nums, i, nums.Length - 1 - i + lastLocalMaximum);
-            }
-
             if (lastLocalMaximum > 0)
             {
                 Swap(nums, lastLocalMaximum - 1, lastLocalMaximum);
+            }
+
+            for (int i = lastLocalMaximum; i < (nums.Length + lastLocalMaximum) / 2; i++)
+            {
+                Swap(nums, i, nums.Length - 1 - i + lastLocalMaximum);
             }
         }
 
