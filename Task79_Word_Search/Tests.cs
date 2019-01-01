@@ -15,7 +15,6 @@ namespace AlgoSolving.Task79_Word_Search
             };
 
             Assert.That(new Solution().Exist(board, "ABCCED"), Is.True);
-
         }
 
         [Test]
@@ -29,8 +28,6 @@ namespace AlgoSolving.Task79_Word_Search
             };
 
             Assert.That(new Solution().Exist(board, "SEE"), Is.True);
-
-
         }
 
         [Test]
