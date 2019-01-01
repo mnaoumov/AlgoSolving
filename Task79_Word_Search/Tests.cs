@@ -14,12 +14,36 @@ namespace AlgoSolving.Task79_Word_Search
                 {'A', 'D', 'E', 'E'}
             };
 
-            Assert.Multiple(() =>
+            Assert.That(new Solution().Exist(board, "ABCCED"), Is.True);
+
+        }
+
+        [Test]
+        public void AcceptanceTest2()
+        {
+            var board = new[,]
             {
-                Assert.That(new Solution().Exist(board, "ABCCED"), Is.True);
-                Assert.That(new Solution().Exist(board, "SEE"), Is.True);
-                Assert.That(new Solution().Exist(board, "ABCB"), Is.True);
-            });
+                {'A', 'B', 'C', 'E'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'D', 'E', 'E'}
+            };
+
+            Assert.That(new Solution().Exist(board, "SEE"), Is.True);
+
+
+        }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            var board = new[,]
+            {
+                {'A', 'B', 'C', 'E'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'D', 'E', 'E'}
+            };
+
+            Assert.That(new Solution().Exist(board, "ABCB"), Is.True);
         }
     }
 }
