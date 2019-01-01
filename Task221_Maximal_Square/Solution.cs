@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace AlgoSolving.Task221_Maximal_Square
+﻿namespace AlgoSolving.Task221_Maximal_Square
 {
     public class Solution
     {
