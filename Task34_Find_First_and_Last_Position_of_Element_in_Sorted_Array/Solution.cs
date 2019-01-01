@@ -7,10 +7,11 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
         public int[] SearchRange(int[] nums, int target)
         {
             const int notFoundIndex = -1;
+            var notFoundResult = new[] { notFoundIndex, notFoundIndex };
 
             if (nums.Length == 0 || nums[0] > target || nums[nums.Length - 1] < target)
             {
-                return new[] { notFoundIndex, notFoundIndex };
+                return notFoundResult;
             }
 
             var left = 0;
@@ -35,12 +36,39 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 }
             }
 
-            if (nums[right] == target)
+            if (nums[right] != target)
             {
-                return new[] { right, right };
+                return notFoundResult;
             }
 
-            return new[] { notFoundIndex, notFoundIndex };
+            var firstIndex = right;
+
+            left = 0;
+            right = nums.Length - 1;
+
+            while (left < right)
+            {
+                var middle = (left + right) / 2;
+                var value = nums[middle];
+
+                if (value < target)
+                {
+                    left = middle + 1;
+                }
+                else if (value > target)
+                {
+                    right = middle - 1;
+                }
+                else
+                {
+                    left = middle;
+                }
+            }
+
+            var lastIndex = left;
+
+            return new[] { firstIndex, lastIndex };
+
         }
     }
 }
