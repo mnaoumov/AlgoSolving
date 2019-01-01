@@ -24,7 +24,7 @@
         private bool Exist(char[,] board, string word, int i, int j, int wordIndex, bool[,] visited)
         {
             var m = board.GetLength(0);
-            var n = board.GetLength(0);
+            var n = board.GetLength(1);
             if (i < 0 || j < 0 || i >= m || j >= n)
             {
                 return false;
