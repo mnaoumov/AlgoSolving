@@ -17,15 +17,18 @@ namespace AlgoSolving.Task152_Maximum_Product_Subarray
 
             maxSuffixProducts[n - 1] = nums[n - 1];
             minSuffixProducts[n - 1] = nums[n - 1];
+            var result = nums[n - 1];
 
             for (int i = n - 2; i >= 0; i--)
             {
                 var value = nums[i];
                 maxSuffixProducts[i] = Math.Max(value, value * (value >= 0 ? maxSuffixProducts : minSuffixProducts)[i + 1]);
                 minSuffixProducts[i] = Math.Min(value, value * (value >= 0 ? minSuffixProducts : maxSuffixProducts)[i + 1]);
+
+                result = Math.Max(result, maxSuffixProducts[i]);
             }
 
-            return maxSuffixProducts[0];
+            return result;
         }
     }
 }
