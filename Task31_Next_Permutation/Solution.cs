@@ -20,21 +20,15 @@ namespace AlgoSolving.Task31_Next_Permutation
 
             var copy = nums.ToArray();
 
+            for (int i = lastLocalMaximum; i < nums.Length; i++)
+            {
+                nums[i] = copy[nums.Length - 1 - i];
+            }
+
             if (lastLocalMaximum > 0)
             {
                 nums[lastLocalMaximum - 1] = copy[nums.Length - 1];
                 nums[lastLocalMaximum] = copy[lastLocalMaximum - 1];
-                for (int i = lastLocalMaximum + 1; i < nums.Length; i++)
-                {
-                    nums[i] = copy[nums.Length - 1 - (i - lastLocalMaximum)];
-                }
-            }
-            else
-            {
-                for (int i = 0; i < nums.Length; i++)
-                {
-                    nums[i] = copy[nums.Length - 1 - i];
-                }
             }
         }
     }
