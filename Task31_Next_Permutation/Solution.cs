@@ -20,16 +20,18 @@ namespace AlgoSolving.Task31_Next_Permutation
 
             for (int i = lastLocalMaximum; i < (nums.Length - 1 + lastLocalMaximum) / 2; i++)
             {
-                var nextI = nums.Length - 1 - i + lastLocalMaximum;
-
-                (nums[i], nums[nextI]) = (nums[nextI], nums[i]);
+                Swap(nums, i, nums.Length - 1 - i + lastLocalMaximum);
             }
 
             if (lastLocalMaximum > 0)
             {
-                (nums[lastLocalMaximum - 1], nums[lastLocalMaximum]) =
-                    (nums[lastLocalMaximum], nums[lastLocalMaximum - 1]);
+                Swap(nums, lastLocalMaximum - 1, lastLocalMaximum);
             }
+        }
+
+        private static void Swap(int[] nums, int i, int j)
+        {
+            (nums[i], nums[j]) = (nums[j], nums[i]);
         }
     }
 }
