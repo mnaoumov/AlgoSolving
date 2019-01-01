@@ -18,11 +18,11 @@ namespace AlgoSolving.Task31_Next_Permutation
                 lastLocalMaximum--;
             }
 
-            var copy = nums.ToArray();
-
-            for (int i = lastLocalMaximum; i < nums.Length; i++)
+            for (int i = lastLocalMaximum; i < (nums.Length - 1 + lastLocalMaximum) / 2; i++)
             {
-                nums[i] = copy[nums.Length - 1 - i + lastLocalMaximum];
+                var nextI = nums.Length - 1 - i + lastLocalMaximum;
+
+                (nums[i], nums[nextI]) = (nums[nextI], nums[i]);
             }
 
             if (lastLocalMaximum > 0)
