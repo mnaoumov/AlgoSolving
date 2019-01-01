@@ -4,12 +4,20 @@
     {
         public int[] SearchRange(int[] nums, int target)
         {
+            var firstIndex = SearchRange(nums, target, searchingFirstIndex: true);
+            var lastIndex = SearchRange(nums, target, searchingFirstIndex: false);
+
+            return new[] { firstIndex, lastIndex };
+
+        }
+
+        private static int SearchRange(int[] nums, int target, bool searchingFirstIndex)
+        {
             const int notFoundIndex = -1;
-            var notFoundResult = new[] { notFoundIndex, notFoundIndex };
 
             if (nums.Length == 0 || nums[0] > target || nums[nums.Length - 1] < target)
             {
-                return notFoundResult;
+                return notFoundIndex;
             }
 
             var left = 0;
@@ -28,34 +36,9 @@
                 {
                     right = middle - 1;
                 }
-                else
+                else if (searchingFirstIndex)
                 {
                     right = middle;
-                }
-            }
-
-            if (nums[left] != target)
-            {
-                return notFoundResult;
-            }
-
-            var firstIndex = left;
-
-            left = 0;
-            right = nums.Length - 1;
-
-            while (right - left > 1)
-            {
-                var middle = (left + right) / 2;
-                var value = nums[middle];
-
-                if (value < target)
-                {
-                    left = middle + 1;
-                }
-                else if (value > target)
-                {
-                    right = middle - 1;
                 }
                 else
                 {
@@ -63,10 +46,12 @@
                 }
             }
 
-            var lastIndex = left;
+            if (nums[left] != target)
+            {
+                return notFoundIndex;
+            }
 
-            return new[] { firstIndex, lastIndex };
-
+            return left;
         }
     }
 }
