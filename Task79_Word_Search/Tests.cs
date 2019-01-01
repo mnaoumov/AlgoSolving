@@ -40,7 +40,7 @@ namespace AlgoSolving.Task79_Word_Search
                 {'A', 'D', 'E', 'E'}
             };
 
-            Assert.That(new Solution().Exist(board, "ABCB"), Is.True);
+            Assert.That(new Solution().Exist(board, "ABCB"), Is.False);
         }
     }
 }
