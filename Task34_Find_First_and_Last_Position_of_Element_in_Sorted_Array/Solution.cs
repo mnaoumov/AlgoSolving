@@ -35,9 +35,9 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 }
             }
 
-            if (right < nums.Length && nums[right] == target)
+            if (right > 0 && nums[right - 1] == target)
             {
-                return new[] { right, right };
+                return new[] { right - 1, right - 1 };
             }
 
             return new[] { notFoundIndex, notFoundIndex };
