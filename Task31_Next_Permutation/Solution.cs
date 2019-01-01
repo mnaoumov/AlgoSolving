@@ -18,7 +18,13 @@
 
             if (lastLocalMaximum > 0)
             {
-                Swap(nums, lastLocalMaximum - 1, lastLocalMaximum);
+                int i = lastLocalMaximum;
+                while (i < nums.Length - 1 && nums[i + 1] > nums[lastLocalMaximum - 1])
+                {
+                    i++;
+                }
+
+                Swap(nums, lastLocalMaximum - 1, i);
             }
 
             for (int i = lastLocalMaximum; i < (nums.Length + lastLocalMaximum) / 2; i++)
