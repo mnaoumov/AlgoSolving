@@ -14,22 +14,24 @@ namespace AlgoSolving.Task221_Maximal_Square
             int[,] leftTopSquareSizes = new int[m + 1, n + 1];
             var maxSize = 0;
 
-            for (int i = m - 1; i >= 0 ; i--)
+            for (int i = m - 1; i >= 0; i--)
             {
                 for (int j = n - 1; j >= 0; j--)
                 {
                     var previousSquareSize = leftTopSquareSizes[i + 1, j + 1];
+                    var currentSquareSize = 0;
 
-                    var areLeftTopSidesFull =
-                        Enumerable.Range(i, previousSquareSize + 1).All(k => matrix[k, j] == squareSymbol) &&
-                        Enumerable.Range(j, previousSquareSize + 1).All(k => matrix[i, k] == squareSymbol);
-
-                    leftTopSquareSizes[i, j] =
-                        areLeftTopSidesFull ? previousSquareSize + 1 :
-                        matrix[i, j] == squareSymbol ? 1 : 0;
-                    if (leftTopSquareSizes[i, j] > maxSize)
+                    while (currentSquareSize < previousSquareSize + 1
+                           && matrix[i + currentSquareSize, j] == squareSymbol
+                           && matrix[i, currentSquareSize + j] == squareSymbol)
                     {
-                        maxSize = leftTopSquareSizes[i, j];
+                        currentSquareSize++;
+                    }
+
+                    leftTopSquareSizes[i, j] = currentSquareSize;
+                    if (currentSquareSize > maxSize)
+                    {
+                        maxSize = currentSquareSize;
                     }
                 }
             }
