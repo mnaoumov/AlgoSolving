@@ -49,9 +49,9 @@
 
             var result = 
                 Exist(board, word, i + 1, j, wordIndex + 1, visited)
-                && Exist(board, word, i - 1, j, wordIndex + 1, visited)
-                && Exist(board, word, i, j + 1, wordIndex + 1, visited)
-                && Exist(board, word, i, j - 1, wordIndex + 1, visited);
+                || Exist(board, word, i - 1, j, wordIndex + 1, visited)
+                || Exist(board, word, i, j + 1, wordIndex + 1, visited)
+                || Exist(board, word, i, j - 1, wordIndex + 1, visited);
 
             visited[i, j] = false;
 
