@@ -22,7 +22,7 @@ namespace AlgoSolving.Task31_Next_Permutation
 
             for (int i = lastLocalMaximum; i < nums.Length; i++)
             {
-                nums[i] = copy[nums.Length - 1 - i];
+                nums[i] = copy[nums.Length - 1 - i + lastLocalMaximum];
             }
 
             if (lastLocalMaximum > 0)
