@@ -23,7 +23,7 @@
             var left = 0;
             var right = nums.Length - 1;
 
-            while (right - left > 1)
+            while (left < right)
             {
                 var middle = (left + right) / 2;
                 var value = nums[middle];
@@ -40,20 +40,23 @@
                 {
                     right = middle;
                 }
-                else
+                else if (left != middle)
                 {
                     left = middle;
+                }
+                else if (nums[right] == target)
+                {
+                    return right;
+                }
+                else
+                {
+                    return left;
                 }
             }
 
             if (nums[left] != target)
             {
                 return notFoundIndex;
-            }
-
-            if (!searchingFirstIndex && nums[right] == target)
-            {
-                return right;
             }
 
             return left;
