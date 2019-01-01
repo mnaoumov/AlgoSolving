@@ -17,7 +17,7 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
             var left = 0;
             var right = nums.Length - 1;
 
-            while (left < right)
+            while (right - left > 1)
             {
                 var middle = (left + right) / 2;
                 var value = nums[middle];
@@ -36,17 +36,17 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 }
             }
 
-            if (nums[right] != target)
+            if (nums[left] != target)
             {
                 return notFoundResult;
             }
 
-            var firstIndex = right;
+            var firstIndex = left;
 
             left = 0;
             right = nums.Length - 1;
 
-            while (left < right)
+            while (right - left > 1)
             {
                 var middle = (left + right) / 2;
                 var value = nums[middle];
@@ -58,10 +58,6 @@ namespace AlgoSolving.Task34_Find_First_and_Last_Position_of_Element_in_Sorted_A
                 else if (value > target)
                 {
                     right = middle - 1;
-                }
-                else if (left == middle)
-                {
-                    break;
                 }
                 else
                 {
