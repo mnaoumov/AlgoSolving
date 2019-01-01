@@ -43,5 +43,13 @@ namespace AlgoSolving.Task31_Next_Permutation
             new Solution().NextPermutation(nums);
             Assert.That(nums, Is.EqualTo(new[] { 3, 1, 2 }));
         }
+
+        [Test]
+        public void AcceptanceTest6()
+        {
+            int[] nums = new[] { 5, 1, 1 };
+            new Solution().NextPermutation(nums);
+            Assert.That(nums, Is.EqualTo(new[] { 1, 1, 5 }));
+        }
     }
 }
