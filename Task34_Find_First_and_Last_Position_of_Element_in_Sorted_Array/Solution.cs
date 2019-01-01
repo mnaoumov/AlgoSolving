@@ -51,6 +51,11 @@
                 return notFoundIndex;
             }
 
+            if (!searchingFirstIndex && nums[right] == target)
+            {
+                return right;
+            }
+
             return left;
         }
     }
