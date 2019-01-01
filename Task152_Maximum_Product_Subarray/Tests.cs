@@ -21,5 +21,11 @@ namespace AlgoSolving.Task152_Maximum_Product_Subarray
         {
             Assert.That(new Solution().MaxProduct(new[] { 0, 2 }), Is.EqualTo(2));
         }
+
+        [Test]
+        public void AcceptanceTest4()
+        {
+            Assert.That(new Solution().MaxProduct(new[] { -4, -3, -2 }), Is.EqualTo(12));
+        }
     }
 }
