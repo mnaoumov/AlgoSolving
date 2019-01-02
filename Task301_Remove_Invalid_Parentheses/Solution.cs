@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
 {
@@ -7,102 +8,77 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
     {
         public IList<string> RemoveInvalidParentheses(string s)
         {
-            return RemoveInvalidParentheses(s, 0).ToList();
+            var wrongOpenParentheses = 0;
+            var wrongClosedParentheses = 0;
+            foreach (var symbol in s)
+            {
+                switch (symbol)
+                {
+                    case '(':
+                        wrongOpenParentheses++;
+                        break;
+                    case ')':
+                        if (wrongOpenParentheses > 0)
+                        {
+                            wrongOpenParentheses--;
+                        }
+                        else
+                        {
+                            wrongClosedParentheses++;
+                        }
+                        break;
+                }
+            }
+
+            var results = new HashSet<string>();
+            RemoveInvalidParentheses(s, 0, 0, wrongOpenParentheses, wrongClosedParentheses, new StringBuilder(), results);
+            return results.ToArray();
         }
 
-        private IList<string> RemoveInvalidParentheses(string s, int start)
+        private void RemoveInvalidParentheses(string s, int index,
+            int balance, int wrongOpenParentheses, int wrongClosedParentheses,
+            StringBuilder builder, HashSet<string> results)
         {
-            var balance = 0;
-            var balances = new int[s.Length];
-            for (int i = start; i < s.Length; i++)
+            if (wrongOpenParentheses < 0 || wrongClosedParentheses < 0 || balance < 0)
             {
-                if (s[i] == '(')
-                {
-                    balance++;
-                }
-                else if (s[i] == ')')
-                {
-                    balance--;
-                }
-
-                if (balance < 0)
-                {
-                    var results = new List<string>();
-
-                    var suffixResults = RemoveInvalidParentheses(s, i + 1);
-                    var prefixes = new HashSet<string>();
-                    var substring = s.Substring(start, i - start + 1);
-
-                    for (int j = start; j <= i; j++)
-                    {
-                        if (s[j] == ')')
-                        {
-                            var prefix = substring.Remove(j - start, 1);
-                            prefixes.Add(prefix);
-                        }
-                    }
-
-                    foreach (var prefix in prefixes)
-                    {
-                        foreach (var suffixResult in suffixResults)
-                        {
-                            results.Add(prefix + suffixResult);
-                        }
-                    }
-
-                    return results;
-                }
-
-                balances[i] = balance;
+                return;
             }
 
-            if (balance == 0)
+            if (index == s.Length)
             {
-                return new[] { s.Substring(start, s.Length - start) };
-            }
-
-            return RemoveOpenBrackets(s, start, s.Length - 1, balances, balance);
-        }
-
-        private IList<string> RemoveOpenBrackets(string s, int start, int end, int[] balances, int balance)
-        {
-            if (balance == 0)
-            {
-                return new[] { s.Substring(start, end - start + 1) };
-            }
-
-            for (int i = end; i >= start; i--)
-            {
-                if (s[i] == '(')
+                if (wrongOpenParentheses == 0 && wrongClosedParentheses == 0 && balance == 0)
                 {
-                    var results = new HashSet<string>();
-
-                    var prefixResults = RemoveOpenBrackets(s, start, i - 1, balances, balance - 1);
-                    var suffix = i < end ? s.Substring(i + 1, end - i) : "";
-
-                    foreach (var prefixResult in prefixResults)
-                    {
-                        results.Add(prefixResult + suffix);
-                    }
-
-                    prefixResults = RemoveOpenBrackets(s, start, i - 1, balances, balance);
-                    suffix = s.Substring(i, end - i + 1);
-
-                    foreach (var prefixResult in prefixResults)
-                    {
-                        results.Add(prefixResult + suffix);
-                    }
-
-                    return results.ToArray();
+                    results.Add(builder.ToString());
                 }
 
-                if (s[i] == ')' && balances[i] < balance)
-                {
-                    return new List<string>();
-                }
+                return;
             }
 
-            return new List<string>();
+            var symbol = s[index];
+            var length = builder.Length;
+
+            switch (symbol)
+            {
+                case '(':
+                    RemoveInvalidParentheses(s, index + 1, balance, wrongOpenParentheses - 1, wrongClosedParentheses, builder, results);
+
+                    builder.Append(symbol);
+                    RemoveInvalidParentheses(s, index + 1, balance + 1, wrongOpenParentheses, wrongClosedParentheses, builder, results);
+                    builder.Remove(length, 1);
+                    break;
+                case ')':
+                    RemoveInvalidParentheses(s, index + 1, balance, wrongOpenParentheses, wrongClosedParentheses - 1, builder, results);
+
+                    builder.Append(symbol);
+                    RemoveInvalidParentheses(s, index + 1, balance - 1, wrongOpenParentheses, wrongClosedParentheses, builder, results);
+                    builder.Remove(length, 1);
+                    break;
+                default:
+                    builder.Append(symbol);
+                    RemoveInvalidParentheses(s, index + 1, balance, wrongOpenParentheses, wrongClosedParentheses, builder, results);
+                    builder.Remove(length, 1);
+                    break;
+            }
         }
     }
 }
