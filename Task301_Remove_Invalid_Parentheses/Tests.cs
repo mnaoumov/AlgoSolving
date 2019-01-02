@@ -26,6 +26,13 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
         }
 
         [Test]
+        public void AcceptanceTest4()
+        {
+            Assert.That(new Solution().RemoveInvalidParentheses(")()))())))"),
+                Is.EquivalentTo(new[] { "(())", "()()" }));
+        }
+
+        [Test]
         public void Open_bracket_removal_not_empty()
         {
             Assert.That(new Solution().RemoveInvalidParentheses("(a(b()"),
