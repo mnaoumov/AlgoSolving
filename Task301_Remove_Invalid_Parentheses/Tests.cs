@@ -24,5 +24,12 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
             Assert.That(new Solution().RemoveInvalidParentheses(")("),
                 Is.EquivalentTo(new[] { "" }));
         }
+
+        [Test]
+        public void Open_bracket_removal_not_empty()
+        {
+            Assert.That(new Solution().RemoveInvalidParentheses("(a(b()"),
+                Is.EquivalentTo(new[] { "(ab)", "a(b)", "ab()" }));
+        }
     }
 }
