@@ -13,33 +13,34 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
 
         private IList<string> RemoveInvalidParentheses(string s, int start)
         {
-            var results = new List<string>();
             var balance = 0;
-            var openBracketIndices = new List<int>();
-            var closedBracketIndices = new List<int>();
             var balances = new int[s.Length];
             for (int i = start; i < s.Length; i++)
             {
                 if (s[i] == '(')
                 {
                     balance++;
-                    openBracketIndices.Add(i);
                 }
                 else if (s[i] == ')')
                 {
                     balance--;
-                    closedBracketIndices.Add(i);
                 }
 
                 if (balance < 0)
                 {
+                    var results = new List<string>();
+
                     var suffixResults = RemoveInvalidParentheses(s, i + 1);
                     var prefixes = new HashSet<string>();
                     var substring = s.Substring(start, i - start + 1);
-                    foreach (var closedBracketIndex in closedBracketIndices)
+
+                    for (int j = start; j <= i; j++)
                     {
-                        var prefix = substring.Remove(closedBracketIndex - start, 1);
-                        prefixes.Add(prefix);
+                        if (s[j] == ')')
+                        {
+                            var prefix = substring.Remove(j - start, 1);
+                            prefixes.Add(prefix);
+                        }
                     }
 
                     foreach (var prefix in prefixes)
@@ -61,13 +62,48 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
                 return new[] { s.Substring(start, s.Length - start) };
             }
 
-            return RemoveOpenBrackets(results, start, openBracketIndices, balances, balance);
+            return RemoveOpenBrackets(s, start, s.Length - 1, balances, balance);
         }
 
-        private IList<string> RemoveOpenBrackets(List<string> results, int start, List<int> openBracketIndices,
-            int[] balances, int balance)
+        private IList<string> RemoveOpenBrackets(string s, int start, int end, int[] balances, int balance)
         {
-            return new List<string>{ "" };
+            if (balance == 0)
+            {
+                return new[] { s.Substring(start, end - start + 1) };
+            }
+
+            for (int i = end; i >= start; i--)
+            {
+                if (s[i] == '(')
+                {
+                    var results = new HashSet<string>();
+
+                    var prefixResults = RemoveOpenBrackets(s, start, i - 1, balances, balance - 1);
+                    var suffix = i < end ? s.Substring(i + 1, end - i) : "";
+
+                    foreach (var prefixResult in prefixResults)
+                    {
+                        results.Add(prefixResult + suffix);
+                    }
+
+                    prefixResults = RemoveOpenBrackets(s, start, i - 1, balances, balance);
+                    suffix = s.Substring(i, end - i + 1);
+
+                    foreach (var prefixResult in prefixResults)
+                    {
+                        results.Add(prefixResult + suffix);
+                    }
+
+                    return results.ToArray();
+                }
+
+                if (s[i] == ')' && balances[i] < balance)
+                {
+                    return new List<string> { "" };
+                }
+            }
+
+            return new List<string> { "" };
         }
     }
 }
