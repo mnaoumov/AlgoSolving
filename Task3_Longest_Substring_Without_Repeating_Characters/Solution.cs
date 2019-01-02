@@ -6,6 +6,11 @@ namespace AlgoSolving.Task3_Longest_Substring_Without_Repeating_Characters
     {
         public int LengthOfLongestSubstring(string s)
         {
+            if (s == "")
+            {
+                return 0;
+            }
+
             var result = 1;
             var previousMaxSuffixLength = 1;
             for (int i = s.Length - 2; i >= 0; i--)
