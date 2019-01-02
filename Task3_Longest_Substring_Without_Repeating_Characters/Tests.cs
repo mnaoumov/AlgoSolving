@@ -21,5 +21,11 @@ namespace AlgoSolving.Task3_Longest_Substring_Without_Repeating_Characters
         {
             Assert.That(new Solution().LengthOfLongestSubstring("pwwkew"), Is.EqualTo(3));
         }
+
+        [Test]
+        public void Empty_string()
+        {
+            Assert.That(new Solution().LengthOfLongestSubstring(""), Is.EqualTo(0));
+        }
     }
 }
