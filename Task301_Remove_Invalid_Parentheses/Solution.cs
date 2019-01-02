@@ -99,11 +99,11 @@ namespace AlgoSolving.Task301_Remove_Invalid_Parentheses
 
                 if (s[i] == ')' && balances[i] < balance)
                 {
-                    return new List<string> { "" };
+                    return new List<string>();
                 }
             }
 
-            return new List<string> { "" };
+            return new List<string>();
         }
     }
 }
