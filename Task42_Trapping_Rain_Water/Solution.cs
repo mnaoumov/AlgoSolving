@@ -10,7 +10,7 @@
             var maxLeftHeight = 0;
             var maxRightHeight = 0;
 
-            while (leftIndex < rightIndex)
+            while (leftIndex <= rightIndex)
             {
                 if (height[leftIndex] >= maxLeftHeight)
                 {
