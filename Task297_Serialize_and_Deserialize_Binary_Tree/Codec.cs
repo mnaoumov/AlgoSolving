@@ -1,7 +1,12 @@
-﻿namespace AlgoSolving.Task297_Serialize_and_Deserialize_Binary_Tree
+﻿using System.Linq;
+
+namespace AlgoSolving.Task297_Serialize_and_Deserialize_Binary_Tree
 {
     public class Codec
     {
+        private const string NullString = "null";
+        private const char Separator = ',';
+
         /// <summary>
         /// Encodes a tree to a single string.
         /// </summary>
@@ -9,7 +14,12 @@
         /// <returns></returns>
         public string serialize(TreeNode root)
         {
-            return null;
+            if (root == null)
+            {
+                return NullString;
+            }
+
+            return string.Join(Separator.ToString(), root.val, serialize(root.left), serialize(root.right));
         }
 
         /// <summary>
@@ -19,7 +29,39 @@
         /// <returns></returns>
         public TreeNode deserialize(string data)
         {
-            return null;
+            var parts = data.Split(Separator);
+            var values = parts.Select(Parse).ToArray();
+
+            return BuildNode(values, 0).node;
+        }
+
+        private static (TreeNode node, int nextIndex) BuildNode(int?[] values, int index)
+        {
+            if (values[index] == null)
+            {
+                return (null, index + 1);
+            }
+
+            var leftNodeIndexPair = BuildNode(values, index + 1);
+            var rightNodeIndexPair = BuildNode(values, leftNodeIndexPair.nextIndex);
+
+            var node = new TreeNode(values[index].Value)
+            {
+                left = leftNodeIndexPair.node,
+                right = rightNodeIndexPair.node
+            };
+
+            return (node, rightNodeIndexPair.nextIndex);
+        }
+
+        private static int? Parse(string str)
+        {
+            if (str == NullString)
+            {
+                return null;
+            }
+
+            return int.Parse(str);
         }
     }
 }
