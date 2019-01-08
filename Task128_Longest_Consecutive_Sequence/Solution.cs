@@ -32,6 +32,17 @@ namespace AlgoSolving.Task128_Longest_Consecutive_Sequence
                 }
 
                 ranges[num] = (left, right);
+
+                if (ranges.ContainsKey(num + 1))
+                {
+                    ranges[num + 1] = (left, right);
+                }
+
+                if (ranges.ContainsKey(num - 1))
+                {
+                    ranges[num - 1] = (left, right);
+                }
+
                 result = Math.Max(result, right - left + 1);
             }
 
