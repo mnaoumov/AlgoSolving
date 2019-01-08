@@ -12,27 +12,19 @@
 
             while (leftIndex <= rightIndex)
             {
-                if (height[leftIndex] >= maxLeftHeight)
-                {
-                    maxLeftHeight = height[leftIndex];
-                    leftIndex++;
-                }
-                else if (height[rightIndex] >= maxRightHeight)
+                if (height[rightIndex] >= maxRightHeight)
                 {
                     maxRightHeight = height[rightIndex];
                     rightIndex--;
                 }
+                else if (height[leftIndex] < maxLeftHeight && maxLeftHeight <= maxRightHeight)
+                {
+                    result += maxLeftHeight - height[leftIndex];
+                    leftIndex++;
+                }
                 else
                 {
-                    if (maxLeftHeight <= maxRightHeight)
-                    {
-                        result += maxLeftHeight - height[leftIndex];
-                    }
-                    else
-                    {
-                        maxLeftHeight = height[leftIndex];
-                    }
-
+                    maxLeftHeight = height[leftIndex];
                     leftIndex++;
                 }
             }
