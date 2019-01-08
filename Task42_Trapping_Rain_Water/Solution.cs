@@ -18,13 +18,14 @@ namespace AlgoSolving.Task42_Trapping_Rain_Water
 
             for (int i = 0; i < height.Length; i++)
             {
+                maxLeft = Math.Min(maxLeft, rightMaxHeights[i]);
                 if (height[i] >= maxLeft)
                 {
                     maxLeft = height[i];
                 }
                 else
                 {
-                    result += (Math.Min(maxLeft, rightMaxHeights[i]) - height[i]);
+                    result += maxLeft - height[i];
                 }
             }
 
