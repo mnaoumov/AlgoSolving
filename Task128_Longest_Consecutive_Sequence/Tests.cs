@@ -15,5 +15,11 @@ namespace AlgoSolving.Task128_Longest_Consecutive_Sequence
         {
             Assert.That(new Solution().LongestConsecutive(new[] { 1, 2, 0, 1 }), Is.EqualTo(3));
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            Assert.That(new Solution().LongestConsecutive(new[] { 0, 3, 7, 2, 5, 8, 4, 6, 0, 1 }), Is.EqualTo(9));
+        }
     }
 }
