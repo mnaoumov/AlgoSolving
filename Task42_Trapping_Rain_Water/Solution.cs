@@ -28,6 +28,10 @@
                     {
                         result += maxLeftHeight - height[leftIndex];
                     }
+                    else
+                    {
+                        maxLeftHeight = height[leftIndex];
+                    }
 
                     leftIndex++;
                 }
