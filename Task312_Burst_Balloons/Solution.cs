@@ -1,46 +1,53 @@
-﻿using System.Collections.Generic;
-
-namespace AlgoSolving.Task312_Burst_Balloons
+﻿namespace AlgoSolving.Task312_Burst_Balloons
 {
     public class Solution
     {
         public int MaxCoins(int[] nums)
         {
-            return MaxCoins(new List<int>(nums), new Dictionary<string, int>());
+            var n = nums.Length;
+            var cache = new int?[n, n];
+            return MaxCoins(nums, 0, n - 1, cache);
         }
 
-        private int MaxCoins(List<int> nums, Dictionary<string, int> cache)
+        private int MaxCoins(int[] nums, int start, int end, int?[,] cache)
         {
-            if (nums.Count == 0)
+            if (start > end)
             {
                 return 0;
             }
 
-            var key = string.Join(",", nums);
-
-            if (cache.ContainsKey(key))
+            if (cache[start, end] != null)
             {
-                return cache[key];
+                return cache[start, end].Value;
             }
 
             var max = int.MinValue;
-            for (int i = 0; i < nums.Count; i++)
+
+            for (int i = start; i <= end; i++)
             {
-                var current = nums[i];
-                var left = i - 1 >= 0 ? nums[i - 1] : 1;
-                var right = (i + 1 < nums.Count ? nums[i + 1] : 1);
-                nums.RemoveAt(i);
-                var candidate = left * current * right + MaxCoins(nums, cache);
-                if (candidate > max)
+                var value = MaxCoins(nums, start, i - 1, cache) +
+                            Get(nums, start - 1) * Get(nums, i) * Get(nums, end + 1) +
+                            MaxCoins(nums, i + 1, end, cache);
+                if (value > max)
                 {
-                    max = candidate;
+                    max = value;
                 }
-                nums.Insert(i, current);
             }
 
-            cache[key] = max;
-
+            cache[start, end] = max;
             return max;
+        }
+
+        private static int Get(int[] nums, int i)
+        {
+            if (0 <= i && i < nums.Length)
+            {
+                return nums[i];
+            }
+            else
+            {
+                return 1;
+            }
         }
     }
 }
