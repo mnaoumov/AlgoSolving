@@ -42,5 +42,13 @@ namespace AlgoSolving.Task98_Validate_Binary_Search_Tree
 
             Assert.That(new Solution().IsValidBST(root), Is.False);
         }
+
+        [Test]
+        public void Max_value_limits()
+        {
+            var root = new TreeNode(int.MaxValue);
+
+            Assert.That(new Solution().IsValidBST(root), Is.True);
+        }
     }
 }
