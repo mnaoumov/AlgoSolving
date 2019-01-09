@@ -4,17 +4,18 @@
     {
         public bool IsValidBST(TreeNode root)
         {
-            return IsValidBST(root, int.MinValue, int.MaxValue);
+            return IsValidBST(root, null, null);
         }
 
-        private bool IsValidBST(TreeNode root, int min, int max)
+        private bool IsValidBST(TreeNode root, int? min, int? max)
         {
             if (root == null)
             {
                 return true;
             }
 
-            return min < root.val && root.val < max &&
+            return (min == null || min < root.val) && 
+                   (max == null || root.val < max) &&
                    IsValidBST(root.left, min, root.val) &&
                    IsValidBST(root.right, root.val, max);
         }
