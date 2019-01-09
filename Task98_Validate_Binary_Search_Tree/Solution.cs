@@ -14,7 +14,7 @@
                 return true;
             }
 
-            return min <= root.val && root.val <= max &&
+            return min < root.val && root.val < max &&
                    IsValidBST(root.left, min, root.val) &&
                    IsValidBST(root.right, root.val, max);
         }
