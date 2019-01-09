@@ -7,7 +7,18 @@ namespace AlgoSolving.Task15_3Sum
     {
         public IList<IList<int>> ThreeSum(int[] nums)
         {
-            var set = new HashSet<int>(nums);
+            var numCounts = new Dictionary<int, int>();
+
+            foreach (var num in nums)
+            {
+                if (!numCounts.ContainsKey(num))
+                {
+                    numCounts[num] = 0;
+                }
+
+                numCounts[num]++;
+            }
+
             var keys = new HashSet<string>();
 
             var results = new List<IList<int>>();
@@ -19,7 +30,22 @@ namespace AlgoSolving.Task15_3Sum
                     var first = nums[i];
                     var second = nums[j];
                     var third = -(first + second);
-                    if (set.Contains(third))
+                    int requiredCount;
+
+                    if (third != first && third != second)
+                    {
+                        requiredCount = 1;
+                    }
+                    else if (third == first && third == second)
+                    {
+                        requiredCount = 3;
+                    }
+                    else
+                    {
+                        requiredCount = 2;
+                    }
+
+                    if (numCounts.ContainsKey(third) && numCounts[third] >= requiredCount)
                     {
                         var triplet = new[] { first, second, third };
                         Array.Sort(triplet);
