@@ -31,5 +31,16 @@ namespace AlgoSolving.Task98_Validate_Binary_Search_Tree
 
             Assert.That(new Solution().IsValidBST(root), Is.False);
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            var root = new TreeNode(1)
+            {
+                left = new TreeNode(1)
+            };
+
+            Assert.That(new Solution().IsValidBST(root), Is.False);
+        }
     }
 }
