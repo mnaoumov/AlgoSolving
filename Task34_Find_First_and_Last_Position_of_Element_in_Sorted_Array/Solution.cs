@@ -4,6 +4,7 @@
     {
         public int[] SearchRange(int[] nums, int target)
         {
+            // ReSharper disable once InconsistentNaming
             var firstIndex = SearchRange(nums, target, searchingFirstIndex: true);
             var lastIndex = SearchRange(nums, target, searchingFirstIndex: false);
 

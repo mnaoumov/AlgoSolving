@@ -5,6 +5,7 @@ namespace AlgoSolving.Task494_Target_Sum
 {
     public class Solution
     {
+        // ReSharper disable once InconsistentNaming
         public int FindTargetSumWays(int[] nums, int S)
         {
             var partialResults = new Dictionary<int, int>();

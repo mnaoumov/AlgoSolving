@@ -9,7 +9,7 @@ namespace AlgoSolving
     {
         public static CollectionItemsEqualConstraint IsEquivalentTo<T>(IList<IList<T>> listOfLists)
         {
-            return Is.EquivalentTo(listOfLists).Using<IList<T>>((list1, list2) => list1.Count == list2.Count && !list1.Except<T>(list2).Any());
+            return Is.EquivalentTo(listOfLists).Using<IList<T>>((list1, list2) => list1.Count == list2.Count && !list1.Except(list2).Any());
         }
     }
 }

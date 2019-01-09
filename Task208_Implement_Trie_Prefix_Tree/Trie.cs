@@ -2,14 +2,14 @@
 {
     public class Trie
     {
-        private readonly Node root = new Node();
+        private readonly Node _root;
 
         /// <summary>
         /// Initialize your data structure here.
         /// </summary>
         public Trie()
         {
-
+            _root = new Node();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@
 
         private Node GetWordNode(string word, bool createIfMissing)
         {
-            var node = root;
+            var node = _root;
             foreach (var letter in word)
             {
                 const char firstLetter = 'a';
@@ -68,7 +68,7 @@
         private class Node
         {
             private const int LettersInAlphabet = 26;
-            public readonly Node[] LetterNodes = new Node[LettersInAlphabet];
+            public Node[] LetterNodes { get; } = new Node[LettersInAlphabet];
             public bool Inserted { get; set; }
         }
     }

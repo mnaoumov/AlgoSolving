@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgoSolving.Task394_Decode_Strings
+﻿namespace AlgoSolving.Task394_Decode_Strings
 {
     public class Solution
     {

@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Text;
 
 namespace AlgoSolving.Task718_Maximum_Length_of_Repeated_Subarray
 {
     public class Solution
     {
+        // ReSharper disable InconsistentNaming
         public int FindLength(int[] A, int[] B)
+        // ReSharper restore InconsistentNaming
         {
             var suffixArrayLengths = new int[A.Length + 1, B.Length + 1];
             var max = 0;

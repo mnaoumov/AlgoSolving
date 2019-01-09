@@ -12,6 +12,7 @@ namespace AlgoSolving.Task297_Serialize_and_Deserialize_Binary_Tree
         /// </summary>
         /// <param name="root"></param>
         /// <returns></returns>
+        // ReSharper disable once InconsistentNaming
         public string serialize(TreeNode root)
         {
             if (root == null)
@@ -27,6 +28,7 @@ namespace AlgoSolving.Task297_Serialize_and_Deserialize_Binary_Tree
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        // ReSharper disable once InconsistentNaming
         public TreeNode deserialize(string data)
         {
             var parts = data.Split(Separator);

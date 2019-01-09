@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgoSolving.Task647_Palindromic_Substrings
+﻿namespace AlgoSolving.Task647_Palindromic_Substrings
 {
     public class Solution
     {

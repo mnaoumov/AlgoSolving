@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace AlgoSolving.Task102_BinaryTree_Level_Order_Traversal
 {

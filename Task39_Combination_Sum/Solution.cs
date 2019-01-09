@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace AlgoSolving.Task39_Combination_Sum
 {

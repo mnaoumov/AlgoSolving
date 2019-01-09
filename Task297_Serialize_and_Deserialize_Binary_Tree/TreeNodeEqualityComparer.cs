@@ -21,10 +21,13 @@ namespace AlgoSolving.Task297_Serialize_and_Deserialize_Binary_Tree
 
         public int GetHashCode(TreeNode obj)
         {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+            // ReSharper disable HeuristicUnreachableCode
             if (ReferenceEquals(obj, null))
             {
                 return 0;
             }
+            // ReSharper restore HeuristicUnreachableCode
 
             return (obj.val, GetHashCode(obj.left), GetHashCode(obj.right)).GetHashCode();
         }
