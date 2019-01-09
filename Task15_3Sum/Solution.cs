@@ -7,6 +7,7 @@ namespace AlgoSolving.Task15_3Sum
     {
         public IList<IList<int>> ThreeSum(int[] nums)
         {
+            Array.Sort(nums);
             var numCounts = new Dictionary<int, int>();
 
             foreach (var num in nums)
@@ -30,6 +31,12 @@ namespace AlgoSolving.Task15_3Sum
                     var first = nums[i];
                     var second = nums[j];
                     var third = -(first + second);
+
+                    if (third < second)
+                    {
+                        continue;
+                    }
+
                     int requiredCount;
 
                     if (third != first && third != second)
@@ -48,7 +55,6 @@ namespace AlgoSolving.Task15_3Sum
                     if (numCounts.ContainsKey(third) && numCounts[third] >= requiredCount)
                     {
                         var triplet = new[] { first, second, third };
-                        Array.Sort(triplet);
                         var key = string.Join(",", triplet);
 
                         if (!keys.Contains(key))
