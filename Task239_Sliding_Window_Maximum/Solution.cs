@@ -7,6 +7,10 @@ namespace AlgoSolving.Task239_Sliding_Window_Maximum
     {
         public int[] MaxSlidingWindow(int[] nums, int k)
         {
+            if (nums.Length == 0 && k == 0)
+            {
+                return new int[] { };
+            }
             var sortedWindowWithCounts = new SortedList<int, int>(k);
             for (int i = 0; i < k - 1; i++)
             {
