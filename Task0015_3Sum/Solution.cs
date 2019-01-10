@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoSolving.Task0015_3Sum
 {
@@ -24,10 +25,27 @@ namespace AlgoSolving.Task0015_3Sum
 
             var results = new List<IList<int>>();
 
-            for (int i = 0; i < nums.Length; i++)
+            var n = nums.Length;
+
+            for (int i = 0; i < n; i++)
             {
-                for (int j = i + 1; j < nums.Length; j++)
+                if (i + 2 < n && nums[i] == nums[i + 2])
                 {
+                    continue;
+                }
+
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (j > i + 1 && nums[i] == nums[i + 1])
+                    {
+                        break;
+                    }
+
+                    if (j + 1 < n && nums[j] == nums[j + 1])
+                    {
+                        continue;
+                    }
+
                     var first = nums[i];
                     var second = nums[j];
                     var third = -(first + second);
@@ -37,32 +55,11 @@ namespace AlgoSolving.Task0015_3Sum
                         continue;
                     }
 
-                    int requiredCount;
+                    var triplet = new[] { first, second, third };
 
-                    if (third != first && third != second)
+                    if (numCounts.ContainsKey(third) && numCounts[third] >= triplet.Count(x => x == third))
                     {
-                        requiredCount = 1;
-                    }
-                    else if (third == first && third == second)
-                    {
-                        requiredCount = 3;
-                    }
-                    else
-                    {
-                        requiredCount = 2;
-                    }
-
-                    if (numCounts.ContainsKey(third) && numCounts[third] >= requiredCount)
-                    {
-                        var triplet = new[] { first, second, third };
-                        var key = string.Join(",", triplet);
-
-                        if (!keys.Contains(key))
-                        {
-                            results.Add(triplet);
-                            keys.Add(key);
-                        }
-
+                        results.Add(triplet);
                     }
                 }
             }
