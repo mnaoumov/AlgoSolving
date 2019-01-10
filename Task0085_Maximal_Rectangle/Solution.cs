@@ -9,7 +9,8 @@ namespace AlgoSolving.Task0085_Maximal_Rectangle
             var m = matrix.GetLength(0);
             var n = matrix.GetLength(1);
 
-            var maximalRectanglesStartsInLeftTopCorner = new(int width, int height)[m + 1, n + 1];
+            // dp[i,j][h] = w - means, that we have rectangle (i,j)->(i+w-1,j+h-1) and w is maximal for fixed (i,j,h)
+            var dp = new int[m + 1, n + 1][];
             var result = 0;
 
             for (int i = m - 1; i >= 0; i--)
@@ -19,29 +20,26 @@ namespace AlgoSolving.Task0085_Maximal_Rectangle
                     const char rectangleSymbol = '1';
                     if (matrix[i, j] != rectangleSymbol)
                     {
-                        maximalRectanglesStartsInLeftTopCorner[i, j] = (0, 0);
                         continue;
                     }
 
-                    var previousRectangle = maximalRectanglesStartsInLeftTopCorner[i + 1, j + 1];
-                    var width = 1;
-                    while (width < previousRectangle.width + 1 && matrix[i + width, j] == rectangleSymbol)
+                    var height = dp[i, j + 1] == null ? 1 : dp[i, j + 1].Length;
+                    var widths = new int[height + 1];
+                    widths[1] = GetMaxWidth(dp, i, j + 1, 1) + 1;
+                    for (int k = 2; k <= height; k++)
                     {
-                        width++;
+                        widths[k] = Math.Min(GetMaxWidth(dp, i + 1, j + 1, k - 1), widths[0]);
+                        result = Math.Max(result, k * widths[k]);
                     }
-
-                    var height = 1;
-                    while (height < previousRectangle.height + 1 && matrix[i, j + height] == rectangleSymbol)
-                    {
-                        height++;
-                    }
-
-                    maximalRectanglesStartsInLeftTopCorner[i, j] = (width, height);
-                    result = Math.Max(result, width * height);
                 }
             }
 
             return result;
+        }
+
+        private static int GetMaxWidth(int[,][] dp, int i, int j, int height)
+        {
+            return dp[i, j] != null && dp[i, j].Length > height ? dp[i, j][height] : 0;
         }
     }
 }
