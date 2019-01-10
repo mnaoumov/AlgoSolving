@@ -28,7 +28,7 @@ namespace AlgoSolving.Task0967_Numbers_With_Same_Consecutive_Differences
 
                     if (digit <= 9 - K)
                     {
-                        nextResults.Add(10*result + digit + K);
+                        nextResults.Add(10 * result + digit + K);
                     }
                 }
 
