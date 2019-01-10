@@ -28,7 +28,6 @@ namespace AlgoSolving.Task0076_Minimum_Window_Substring
                 var symbol = s[i];
                 if (!symbolCounts.ContainsKey(symbol))
                 {
-                    startIndex++;
                     continue;
                 }
 
