@@ -26,13 +26,14 @@
                        IsMatch(s, p, sIndex + 1, pIndex + 1);
             }
 
+            sIndex--;
             do
             {
+                sIndex++;
                 if (IsMatch(s, p, sIndex, pIndex + 2))
                 {
                     return true;
                 }
-                sIndex++;
             } while (patternSymbol == anyModifier || (sIndex < s.Length && patternSymbol == s[sIndex]));
 
             return false;
