@@ -25,7 +25,10 @@ namespace AlgoSolving.Task0032_Longest_Valid_Parentheses
                 }
                 else if (endOfPreviousLongest < s.Length && s[endOfPreviousLongest] == closeBracket)
                 {
-                    longestPrefixes[i] = 2 + longestPrefixes[i + 1];
+                    longestPrefixes[i] = 2 + longestPrefixes[i + 1] +
+                                         (endOfPreviousLongest + 1 < s.Length
+                                             ? longestPrefixes[endOfPreviousLongest + 1]
+                                             : 0);
                 }
                 else
                 {
