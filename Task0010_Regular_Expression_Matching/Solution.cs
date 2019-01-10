@@ -9,9 +9,9 @@
 
         private bool IsMatch(string s, string p, int sIndex, int pIndex)
         {
-            if (sIndex == s.Length || pIndex == p.Length)
+            if (pIndex == p.Length)
             {
-                return sIndex == s.Length && pIndex == p.Length;
+                return sIndex == s.Length;
             }
 
             const char anyModifier = '.';
@@ -22,7 +22,7 @@
 
             if (!hasMultipleModifier)
             {
-                return (patternSymbol == anyModifier || patternSymbol == s[sIndex]) &&
+                return sIndex < s.Length && (patternSymbol == anyModifier || patternSymbol == s[sIndex]) &&
                        IsMatch(s, p, sIndex + 1, pIndex + 1);
             }
 
