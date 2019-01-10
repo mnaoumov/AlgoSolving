@@ -33,5 +33,11 @@ namespace AlgoSolving.Task0010_Regular_Expression_Matching
         {
             Assert.That(new Solution().IsMatch("mississippi", "mis*is*p*."), Is.False);
         }
+
+        [Test]
+        public void AcceptanceTest6()
+        {
+            Assert.That(new Solution().IsMatch("ab", ".*c"), Is.False);
+        }
     }
 }
