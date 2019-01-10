@@ -12,9 +12,16 @@ namespace AlgoSolving.Task0076_Minimum_Window_Substring
             }
 
             var symbolCounts = new Dictionary<char, int>();
+            var targetSymbolCounts = new Dictionary<char, int>();
             foreach (var symbol in t)
             {
                 symbolCounts[symbol] = 0;
+                if (!targetSymbolCounts.ContainsKey(symbol))
+                {
+                    targetSymbolCounts[symbol] = 0;
+                }
+
+                targetSymbolCounts[symbol]++;
             }
 
             var missingSymbolsCount = symbolCounts.Count;
@@ -33,7 +40,7 @@ namespace AlgoSolving.Task0076_Minimum_Window_Substring
 
                 symbolCounts[symbol]++;
 
-                if (symbolCounts[symbol] == 1)
+                if (symbolCounts[symbol] == targetSymbolCounts[symbol])
                 {
                     missingSymbolsCount--;
                 }
@@ -45,7 +52,7 @@ namespace AlgoSolving.Task0076_Minimum_Window_Substring
                         var startSymbol = s[startIndex];
                         if (symbolCounts.ContainsKey(startSymbol))
                         {
-                            if (symbolCounts[startSymbol] == 1)
+                            if (symbolCounts[startSymbol] == targetSymbolCounts[startSymbol])
                             {
                                 break;
                             }
@@ -69,7 +76,7 @@ namespace AlgoSolving.Task0076_Minimum_Window_Substring
                     var startSymbol = s[startIndex];
                     if (symbolCounts.ContainsKey(startSymbol))
                     {
-                        if (symbolCounts[startSymbol] == 1)
+                        if (symbolCounts[startSymbol] == targetSymbolCounts[startSymbol])
                         {
                             missingSymbolsCount++;
                         }
