@@ -21,7 +21,7 @@ namespace AlgoSolving.Task0967_Numbers_With_Same_Consecutive_Differences
                 foreach (var result in results)
                 {
                     var digit = result % 10;
-                    if (digit >= K)
+                    if (K != 0 && digit >= K)
                     {
                         nextResults.Add(10 * result + digit - K);
                     }
