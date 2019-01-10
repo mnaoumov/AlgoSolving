@@ -15,5 +15,11 @@ namespace AlgoSolving.Task0032_Longest_Valid_Parentheses
         {
             Assert.That(new Solution().LongestValidParentheses(")()())"), Is.EqualTo(4));
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            Assert.That(new Solution().LongestValidParentheses("((()))())"), Is.EqualTo(8));
+        }
     }
 }
