@@ -34,7 +34,7 @@
                 {
                     return true;
                 }
-            } while (patternSymbol == anyModifier || (sIndex < s.Length && patternSymbol == s[sIndex]));
+            } while (sIndex < s.Length && (patternSymbol == anyModifier || patternSymbol == s[sIndex]));
 
             return false;
         }
