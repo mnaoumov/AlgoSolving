@@ -39,5 +39,11 @@ namespace AlgoSolving.Task0010_Regular_Expression_Matching
         {
             Assert.That(new Solution().IsMatch("ab", ".*c"), Is.False);
         }
+
+        [Test]
+        public void Optional_pattern_after_string()
+        {
+            Assert.That(new Solution().IsMatch("a", "ab*"), Is.True);
+        }
     }
 }
