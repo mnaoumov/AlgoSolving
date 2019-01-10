@@ -37,10 +37,10 @@ namespace AlgoSolving.Task23_Merge_k_Sorted_Lists
                 Assert.That(merged.next.next.val, Is.EqualTo(2));
                 Assert.That(merged.next.next.next.val, Is.EqualTo(3));
                 Assert.That(merged.next.next.next.next.val, Is.EqualTo(4));
-                Assert.That(merged.next.next.next.next.val, Is.EqualTo(4));
-                Assert.That(merged.next.next.next.next.val, Is.EqualTo(5));
-                Assert.That(merged.next.next.next.next.val, Is.EqualTo(6));
-                Assert.That(merged.next.next.next.next.next, Is.Null);
+                Assert.That(merged.next.next.next.next.next.val, Is.EqualTo(4));
+                Assert.That(merged.next.next.next.next.next.next.val, Is.EqualTo(5));
+                Assert.That(merged.next.next.next.next.next.next.next.val, Is.EqualTo(6));
+                Assert.That(merged.next.next.next.next.next.next.next.next, Is.Null);
             });
         }
     }
