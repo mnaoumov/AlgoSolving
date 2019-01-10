@@ -25,6 +25,7 @@ namespace AlgoSolving.Task0085_Maximal_Rectangle
 
                     var height = dp[i + 1, j] == null ? 1 : dp[i + 1, j].Length;
                     var widths = new int[height + 1];
+                    dp[i, j] = widths;
                     for (int k = 1; k <= height; k++)
                     {
                         widths[k] = k == 1
