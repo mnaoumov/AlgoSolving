@@ -25,10 +25,12 @@ namespace AlgoSolving.Task0085_Maximal_Rectangle
 
                     var height = dp[i, j + 1] == null ? 1 : dp[i, j + 1].Length;
                     var widths = new int[height + 1];
-                    widths[1] = GetMaxWidth(dp, i, j + 1, 1) + 1;
-                    for (int k = 2; k <= height; k++)
+                    for (int k = 1; k <= height; k++)
                     {
-                        widths[k] = Math.Min(GetMaxWidth(dp, i + 1, j + 1, k - 1), widths[0]);
+                        widths[k] = k == 1
+                            ? GetMaxWidth(dp, i, j + 1, 1) + 1
+                            : Math.Min(GetMaxWidth(dp, i + 1, j + 1, k - 1), widths[0]);
+
                         result = Math.Max(result, k * widths[k]);
                     }
                 }
