@@ -23,5 +23,12 @@ namespace AlgoSolving.Task0967_Numbers_With_Same_Consecutive_Differences
             Assert.That(new Solution().NumsSameConsecDiff(1, 0),
                 Is.EqualTo(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
         }
+
+        [Test]
+        public void No_duplicates()
+        {
+            Assert.That(new Solution().NumsSameConsecDiff(2, 0),
+                Is.EqualTo(new[] { 11, 22, 33, 44, 55, 66, 77, 88, 99 }));
+        }
     }
 }
