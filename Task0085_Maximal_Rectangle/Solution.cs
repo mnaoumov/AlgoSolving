@@ -30,7 +30,7 @@ namespace AlgoSolving.Task0085_Maximal_Rectangle
                     {
                         widths[k] = k == 1
                             ? GetMaxWidth(dp, i, j + 1, 1) + 1
-                            : Math.Min(GetMaxWidth(dp, i + 1, j + 1, k - 1), widths[0]);
+                            : Math.Min(GetMaxWidth(dp, i + 1, j + 1, k - 1) + 1, widths[0]);
 
                         result = Math.Max(result, k * widths[k]);
                     }
