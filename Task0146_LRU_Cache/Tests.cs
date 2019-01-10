@@ -22,5 +22,22 @@ namespace AlgoSolving.Task0146_LRU_Cache
                 Assert.That(cache.Get(4), Is.EqualTo(4));
             });
         }
+
+        [Test]
+        public void AcceptanceTest2()
+        {
+            LRUCache cache = new LRUCache(2);
+
+            Assert.Multiple(() =>
+            {
+                cache.Put(1, 1);
+                cache.Put(2, 1);
+                cache.Put(1, 1);
+                cache.Put(2, 3);
+                cache.Put(4, 1);
+                Assert.That(cache.Get(1), Is.EqualTo(-1));
+                Assert.That(cache.Get(2), Is.EqualTo(3));
+            });
+        }
     }
 }
