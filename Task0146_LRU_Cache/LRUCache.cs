@@ -6,14 +6,12 @@ namespace AlgoSolving.Task0146_LRU_Cache
     {
         private readonly int _capacity;
         private readonly Dictionary<int, (int value, int time)> _dictionary;
-        private readonly SortedList<int, int> _timeToKeys;
         private int _time;
 
         public LRUCache(int capacity)
         {
             _capacity = capacity;
             _dictionary = new Dictionary<int, (int value, int time)>(capacity);
-            _timeToKeys = new SortedList<int, int>(capacity);
             _time = 0;
         }
 
@@ -27,8 +25,6 @@ namespace AlgoSolving.Task0146_LRU_Cache
             {
                 var entry = _dictionary[key];
                 _dictionary[key] = (entry.value, _time);
-                _timeToKeys.Remove(entry.time);
-                _timeToKeys.Add(_time, key);
                 return entry.value;
             }
 
@@ -40,13 +36,23 @@ namespace AlgoSolving.Task0146_LRU_Cache
             _time++;
             if (!_dictionary.ContainsKey(key) && _dictionary.Keys.Count == _capacity)
             {
-                var leastUsedKey = _timeToKeys.Values[0];
-                _dictionary.Remove(leastUsedKey);
-                _timeToKeys.RemoveAt(0);
+                var leastAccessTime = int.MaxValue;
+                var leastUsedKey = -1;
 
+                foreach (var kvp in _dictionary)
+                {
+                    var time = kvp.Value.time;
+                    if (time >= leastAccessTime)
+                    {
+                        continue;
+                    }
+
+                    leastAccessTime = time;
+                    leastUsedKey = kvp.Key;
+                }
+                _dictionary.Remove(leastUsedKey);
             }
             _dictionary[key] = (value, _time);
-            _timeToKeys.Add(_time, key);
         }
     }
 }
