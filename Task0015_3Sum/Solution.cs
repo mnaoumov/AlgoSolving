@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AlgoSolving.Task0015_3Sum
 {
@@ -9,19 +8,7 @@ namespace AlgoSolving.Task0015_3Sum
         public IList<IList<int>> ThreeSum(int[] nums)
         {
             Array.Sort(nums);
-            var numCounts = new Dictionary<int, int>();
-
-            foreach (var num in nums)
-            {
-                if (!numCounts.ContainsKey(num))
-                {
-                    numCounts[num] = 0;
-                }
-
-                numCounts[num]++;
-            }
-
-            var keys = new HashSet<string>();
+            var numsSet = new HashSet<int>(nums);
 
             var results = new List<IList<int>>();
 
@@ -55,11 +42,28 @@ namespace AlgoSolving.Task0015_3Sum
                         continue;
                     }
 
-                    var triplet = new[] { first, second, third };
-
-                    if (numCounts.ContainsKey(third) && numCounts[third] >= triplet.Count(x => x == third))
+                    if (!numsSet.Contains(third))
                     {
-                        results.Add(triplet);
+                        continue;
+                    }
+
+                    bool isDuplicate = false;
+
+                    if (third == second)
+                    {
+                        if (third == first)
+                        {
+                            isDuplicate = i == 0 || nums[i] != nums[i - 1];
+                        }
+                        else
+                        {
+                            isDuplicate = nums[j] != nums[j - 1];
+                        }
+                    }
+
+                    if (!isDuplicate)
+                    {
+                        results.Add(new[] { first, second, third });
                     }
                 }
             }
