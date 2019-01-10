@@ -2,7 +2,9 @@
 {
     public class Solution
     {
+        // ReSharper disable InconsistentNaming
         public int[] NumsSameConsecDiff(int N, int K)
+        // ReSharper restore InconsistentNaming
         {
             return new int[] { };
         }
