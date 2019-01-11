@@ -5,27 +5,25 @@ namespace AlgoSolving.Task0146_LRU_Cache
     public class LRUCache
     {
         private readonly int _capacity;
-        private readonly Dictionary<int, (int value, int time)> _dictionary;
-        private int _time;
+        private readonly Dictionary<int, int> _dictionary;
+        private readonly LinkedList<int> _list;
 
         public LRUCache(int capacity)
         {
             _capacity = capacity;
-            _dictionary = new Dictionary<int, (int value, int time)>(capacity);
-            _time = 0;
+            _dictionary = new Dictionary<int, int>(capacity);
+            _list = new LinkedList<int>();
         }
 
         public int Get(int key)
         {
             const int notFound = -1;
 
-            _time++;
-
             if (_dictionary.ContainsKey(key))
             {
-                var entry = _dictionary[key];
-                _dictionary[key] = (entry.value, _time);
-                return entry.value;
+                _list.Remove(key);
+                _list.AddLast(key);
+                return _dictionary[key];
             }
 
             return notFound;
@@ -33,26 +31,14 @@ namespace AlgoSolving.Task0146_LRU_Cache
 
         public void Put(int key, int value)
         {
-            _time++;
             if (!_dictionary.ContainsKey(key) && _dictionary.Keys.Count == _capacity)
             {
-                var leastAccessTime = int.MaxValue;
-                var leastUsedKey = -1;
-
-                foreach (var kvp in _dictionary)
-                {
-                    var time = kvp.Value.time;
-                    if (time >= leastAccessTime)
-                    {
-                        continue;
-                    }
-
-                    leastAccessTime = time;
-                    leastUsedKey = kvp.Key;
-                }
+                var leastUsedKey = _list.First.Value;
                 _dictionary.Remove(leastUsedKey);
             }
-            _dictionary[key] = (value, _time);
+
+            _dictionary[key] = value;
+            _list.AddLast(key);
         }
     }
 }
