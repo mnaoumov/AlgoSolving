@@ -35,6 +35,7 @@ namespace AlgoSolving.Task0146_LRU_Cache
             {
                 var leastUsedKey = _list.First.Value;
                 _dictionary.Remove(leastUsedKey);
+                _list.RemoveFirst();
             }
 
             _dictionary[key] = value;
