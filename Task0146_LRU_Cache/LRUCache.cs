@@ -21,9 +21,9 @@ namespace AlgoSolving.Task0146_LRU_Cache
 
             if (_dictionary.ContainsKey(key))
             {
-                _list.Remove(key);
-                _list.AddLast(key);
-                return _dictionary[key];
+                var value = _dictionary[key];
+                Put(key, value);
+                return value;
             }
 
             return notFound;
@@ -39,6 +39,7 @@ namespace AlgoSolving.Task0146_LRU_Cache
             }
 
             _dictionary[key] = value;
+            _list.Remove(key);
             _list.AddLast(key);
         }
     }
