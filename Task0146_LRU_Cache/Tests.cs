@@ -30,7 +30,6 @@ namespace AlgoSolving.Task0146_LRU_Cache
 
             Assert.Multiple(() =>
             {
-                cache.Put(1, 1);
                 cache.Put(2, 1);
                 cache.Put(1, 1);
                 cache.Put(2, 3);
