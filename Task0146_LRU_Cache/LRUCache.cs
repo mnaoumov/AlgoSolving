@@ -5,13 +5,13 @@ namespace AlgoSolving.Task0146_LRU_Cache
     public class LRUCache
     {
         private readonly int _capacity;
-        private readonly Dictionary<int, int> _dictionary;
+        private readonly Dictionary<int, (int value, LinkedListNode<int> node)> _dictionary;
         private readonly LinkedList<int> _list;
 
         public LRUCache(int capacity)
         {
             _capacity = capacity;
-            _dictionary = new Dictionary<int, int>(capacity);
+            _dictionary = new Dictionary<int, (int value, LinkedListNode<int> node)>(capacity);
             _list = new LinkedList<int>();
         }
 
@@ -21,7 +21,7 @@ namespace AlgoSolving.Task0146_LRU_Cache
 
             if (_dictionary.ContainsKey(key))
             {
-                var value = _dictionary[key];
+                var value = _dictionary[key].value;
                 Put(key, value);
                 return value;
             }
@@ -38,9 +38,11 @@ namespace AlgoSolving.Task0146_LRU_Cache
                 _list.RemoveFirst();
             }
 
-            _dictionary[key] = value;
-            _list.Remove(key);
-            _list.AddLast(key);
+            if (_dictionary.ContainsKey(key))
+            {
+                _list.Remove(_dictionary[key].node);
+            }
+            _dictionary[key] = (value, _list.AddLast(key));
         }
     }
 }
