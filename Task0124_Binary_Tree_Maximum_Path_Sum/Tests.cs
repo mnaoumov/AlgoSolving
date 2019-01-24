@@ -29,5 +29,12 @@ namespace AlgoSolving.Task0124_Binary_Tree_Maximum_Path_Sum
             };
             Assert.That(new Solution().MaxPathSum(root), Is.EqualTo(42));
         }
+
+        [Test]
+        public void SingleNegativeNumber()
+        {
+            TreeNode root = new TreeNode(-3);
+            Assert.That(new Solution().MaxPathSum(root), Is.EqualTo(-3));
+        }
     }
 }
