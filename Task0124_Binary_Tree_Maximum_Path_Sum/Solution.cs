@@ -19,12 +19,22 @@ namespace AlgoSolving.Task0124_Binary_Tree_Maximum_Path_Sum
                 return 0;
             }
 
-            return new[]
+            int result =
+                root.val
+                + Math.Max(MaxPathSumDown(root.left, maxPathSumDowns), 0)
+                + Math.Max(MaxPathSumDown(root.right, maxPathSumDowns), 0);
+
+            if (root.left != null)
             {
-                root.val + Math.Max(MaxPathSumDown(root.left, maxPathSumDowns), 0) + Math.Max(MaxPathSumDown(root.right, maxPathSumDowns), 0),
-                MaxPathSum(root.left, maxPathSumDowns),
-                MaxPathSum(root.right, maxPathSumDowns)
-            }.Max();
+                result = Math.Max(result, MaxPathSum(root.left, maxPathSumDowns));
+            }
+
+            if (root.right != null)
+            {
+                result = Math.Max(result, MaxPathSum(root.right, maxPathSumDowns));
+            }
+
+            return result;
         }
 
         private int MaxPathSumDown(TreeNode root, Dictionary<TreeNode, int> maxPathSumDowns)
