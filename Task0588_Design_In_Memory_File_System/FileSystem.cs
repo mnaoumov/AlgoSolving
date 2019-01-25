@@ -28,7 +28,7 @@ namespace AlgoSolving.Task0588_Design_In_Memory_File_System
 
         private static string[] SplitPathParts(string path)
         {
-            return path.Split('/').Skip(1).ToArray();
+            return path.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToArray();
         }
 
         public void mkdir(string path)
