@@ -14,7 +14,7 @@ namespace AlgoSolving.Task0050_Pow_x_n
         {
             if (n == 0 || x == 1m)
             {
-                return 1m;
+                return 1;
             }
 
             if (x == -1)
