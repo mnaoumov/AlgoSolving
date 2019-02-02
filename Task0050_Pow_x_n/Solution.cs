@@ -17,6 +17,11 @@
             var result = 1m;
             for (int i = 0; i < n; i++)
             {
+                if (result == 0m)
+                {
+                    break;
+                }
+
                 result *= (decimal) x;
             }
 
