@@ -14,13 +14,13 @@
                 return MyPow(1 / x, -n);
             }
 
-            var result = 1.0;
+            var result = 1m;
             for (int i = 0; i < n; i++)
             {
-                result *= x;
+                result *= (decimal) x;
             }
 
-            return result;
+            return (double) result;
         }
     }
 }
