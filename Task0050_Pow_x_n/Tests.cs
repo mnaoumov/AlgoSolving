@@ -21,5 +21,12 @@ namespace AlgoSolving.Task0050_Pow_x_n
         {
             Assert.That(new Solution().MyPow(2.0, -2), Is.EqualTo(0.25));
         }
+
+        [Test]
+        [Timeout(1000)]
+        public void Underflow()
+        {
+            Assert.That(new Solution().MyPow(0.00001, int.MaxValue), Is.EqualTo(0.0));
+        }
     }
 }
