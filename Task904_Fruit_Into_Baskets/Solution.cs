@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AlgoSolving.Task904_Fruit_Into_Baskets
 {
@@ -19,6 +18,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
             var endTreeIndex = 0;
 
             var maxFruitCount = 0;
+            var fruitCount = 0;
 
             while (endTreeIndex < tree.Length)
             {
@@ -27,6 +27,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     var fruitType = tree[startTreeIndex];
 
                     fruitTypeCounts[fruitType]--;
+                    fruitCount--;
                     if (fruitTypeCounts[fruitType] == 0)
                     {
                         fruitTypeCounts.Remove(fruitType);
@@ -42,7 +43,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     {
                         if (fruitTypeCounts.Keys.Count == basketCount)
                         {
-                            maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
+                            maxFruitCount = Math.Max(maxFruitCount, fruitCount);
                             break;
                         }
 
@@ -51,10 +52,11 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
 
                     fruitTypeCounts[fruitType]++;
                     endTreeIndex++;
+                    fruitCount++;
                 }
             }
 
-            maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
+            maxFruitCount = Math.Max(maxFruitCount, fruitCount);
 
             return maxFruitCount;
         }
