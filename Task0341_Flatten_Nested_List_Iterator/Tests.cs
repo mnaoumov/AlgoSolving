@@ -36,6 +36,14 @@ namespace AlgoSolving.Task0341_Flatten_Nested_List_Iterator
             }), Is.EqualTo(new[] { 1, 4, 6 }));
         }
 
+        [Test]
+        public void Empty_list()
+        {
+            Assert.That(FlattenList(new NestedInteger[]
+            {
+                new NestedIntegerImpl(new NestedInteger[] { }),
+            }), Is.EqualTo(new int[] { }));
+        }
 
         private static List<int> FlattenList(NestedInteger[] nestedIntegers)
         {
