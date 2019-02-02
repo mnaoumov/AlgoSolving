@@ -31,7 +31,7 @@ namespace AlgoSolving.Task0341_Flatten_Nested_List_Iterator
 
                 _innerIterator = null;
 
-                if (_index < _nestedList.Count)
+                if (_index == _nestedList.Count)
                 {
                     throw new InvalidOperationException();
                 }
