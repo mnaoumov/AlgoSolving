@@ -11,6 +11,11 @@ namespace AlgoSolving.Task0050_Pow_x_n
                 return 1;
             }
 
+            if (n == int.MinValue)
+            {
+                return MyPow(1 / x, int.MaxValue) / x;
+            }
+
             if (n < 0)
             {
                 return MyPow(1 / x, -n);
