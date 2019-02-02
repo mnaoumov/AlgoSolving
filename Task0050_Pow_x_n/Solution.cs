@@ -1,4 +1,7 @@
-﻿namespace AlgoSolving.Task0050_Pow_x_n
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace AlgoSolving.Task0050_Pow_x_n
 {
     public class Solution
     {
@@ -29,16 +32,20 @@
                 return MyPow(1 / x, -n);
             }
 
-            const int maxPowerOfTwo = 31;
-            var powersOfTwo = new decimal[maxPowerOfTwo];
-            powersOfTwo[0] = x;
+            var powersOfTwo = new List<decimal> { x };
 
             var power = 1;
             int i = 1;
 
             while (power <= n)
             {
-                powersOfTwo[i] = powersOfTwo[i - 1] * powersOfTwo[i - 1];
+                var last = powersOfTwo.Last();
+                if (last == 0)
+                {
+                    return 0;
+                }
+
+                powersOfTwo.Add(last * last);
 
                 if (powersOfTwo[i] == 0)
                 {
