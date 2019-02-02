@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgoSolving.Task0289_Game_of_Life
+﻿namespace AlgoSolving.Task0289_Game_of_Life
 {
     public class Solution
     {
