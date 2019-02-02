@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 
-namespace AlgoSolving.Task904_Fruit_Into_Baskets
+namespace AlgoSolving.Task0904_Fruit_Into_Baskets
 {
     public class Tests
     {

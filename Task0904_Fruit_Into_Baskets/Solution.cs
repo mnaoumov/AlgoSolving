@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlgoSolving.Task904_Fruit_Into_Baskets
+namespace AlgoSolving.Task0904_Fruit_Into_Baskets
 {
     public class Solution
     {
