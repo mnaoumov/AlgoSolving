@@ -38,10 +38,10 @@
             {
                 for (int column = 0; column < columnCount; column++)
                 {
-                    board[row][column] = (int) (
-                        WasAlive(board, row, column)
-                            ? State.WasAliveBecameAlive
-                            : State.WasDeadBecameDead);
+                    var state = (State) board[row][column];
+                    board[row][column] = state == State.WasAliveBecameAlive || state == State.WasDeadBecameAlive
+                        ? (int) State.WasAliveBecameAlive
+                        : (int) State.WasDeadBecameDead;
                 }
             }
         }
