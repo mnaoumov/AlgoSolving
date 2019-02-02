@@ -17,7 +17,29 @@ namespace AlgoSolving.Task0341_Flatten_Nested_List_Iterator
 
         public bool HasNext()
         {
-            return _innerIterator != null && _innerIterator.HasNext() || _index < _nestedList.Count;
+            while (true)
+            {
+                if (_innerIterator != null && _innerIterator.HasNext())
+                {
+                    return true;
+                }
+
+                _innerIterator = null;
+
+                if (_index == _nestedList.Count)
+                {
+                    return false;
+                }
+
+                NestedInteger nestedInteger = _nestedList[_index];
+                if (nestedInteger.IsInteger())
+                {
+                    return true;
+                }
+
+                _innerIterator = new NestedIterator(nestedInteger.GetList());
+                _index++;
+            }
         }
 
         public int Next()
@@ -36,7 +58,7 @@ namespace AlgoSolving.Task0341_Flatten_Nested_List_Iterator
                     throw new InvalidOperationException();
                 }
 
-                var nestedInteger = _nestedList[_index];
+                NestedInteger nestedInteger = _nestedList[_index];
                 _index++;
                 if (nestedInteger.IsInteger())
                 {
