@@ -33,7 +33,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
         [Timeout(1000)]
         public void Many_same_items()
         {
-            Assert.That(new Solution().TotalFruit(Enumerable.Repeat(0, 10000).ToArray()), Is.EqualTo(1000));
+            Assert.That(new Solution().TotalFruit(Enumerable.Repeat(0, 10000).ToArray()), Is.EqualTo(10000));
         }
     }
 }
