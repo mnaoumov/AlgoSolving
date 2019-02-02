@@ -1,19 +1,22 @@
-﻿using System;
-
-namespace AlgoSolving.Task0050_Pow_x_n
+﻿namespace AlgoSolving.Task0050_Pow_x_n
 {
     public class Solution
     {
         public double MyPow(double x, int n)
         {
-            if (n == 0 || Math.Abs(x - 1.0) < double.Epsilon)
+            return (double) MyPow((decimal) x, n);
+        }
+
+        private decimal MyPow(decimal x, int n)
+        {
+            if (n == 0 || x == 1m)
             {
-                return 1.0;
+                return 1m;
             }
 
-            if (Math.Abs(x + 1.0) < double.Epsilon)
+            if (x == -1)
             {
-                return n % 2 == 0 ? 1.0 : -1.0;
+                return n % 2 == 0 ? 1 : -1;
             }
 
             if (n == int.MinValue)
@@ -34,10 +37,10 @@ namespace AlgoSolving.Task0050_Pow_x_n
                     break;
                 }
 
-                result *= (decimal) x;
+                result *= x;
             }
 
-            return (double) result;
+            return result;
         }
     }
 }
