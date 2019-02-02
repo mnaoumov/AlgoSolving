@@ -6,131 +6,204 @@ namespace AlgoSolving.Task0588_Design_In_Memory_File_System
 {
     public class FileSystem
     {
-        private readonly FileSystemItem _root = new FileSystemItem("", FileSystemItemType.Directory);
-
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        // ReSharper disable once InconsistentNaming
         public string[] ls(string path)
         {
-            var pathParts = SplitPathParts(path);
-
-            var pathItem = _root;
-
-            foreach (var part in pathParts)
-            {
-                pathItem = pathItem.Find(part);
-                if (pathItem == null)
-                {
-                    return new string[] { };
-                }
-            }
-
-            return pathItem.List();
+            FileSystemItem item = FileSystemItem.Get(path);
+            return item.List();
         }
 
-        private static string[] SplitPathParts(string path)
-        {
-            return path.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries).ToArray();
-        }
-
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        // ReSharper disable once InconsistentNaming
         public void mkdir(string path)
         {
-            var pathParts = SplitPathParts(path);
-
-            mkdir(pathParts);
+            Directory directory = Directory.Get(path);
+            directory.Create();
         }
 
-        private FileSystemItem mkdir(IEnumerable<string> pathParts)
-        {
-            var directory = _root;
-
-            foreach (var part in pathParts)
-            {
-                directory = directory.Find(part) ?? directory.Create(part, FileSystemItemType.Directory);
-            }
-
-            return directory;
-        }
-
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        // ReSharper disable once InconsistentNaming
         public void addContentToFile(string path, string content)
         {
-            var pathParts = SplitPathParts(path);
-
-            var directory = mkdir(pathParts.Take(pathParts.Length - 1));
-
-            var fileName = pathParts.Last();
-            var file = directory.Find(fileName) ?? directory.Create(fileName, FileSystemItemType.File);
-
+            File file = File.Get(path);
+            file.Create();
             file.Content += content;
         }
 
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        // ReSharper disable once InconsistentNaming
         public string readContentFromFile(string path)
         {
-            var pathParts = SplitPathParts(path);
-
-            var pathItem = _root;
-
-            foreach (var part in pathParts)
-            {
-                pathItem = pathItem.Find(part);
-                if (pathItem == null)
-                {
-                    return null;
-                }
-            }
-
-            return pathItem.Type == FileSystemItemType.File ? pathItem.Content : null;
+            File file = File.Get(path);
+            return file.Content;
         }
 
-        private class FileSystemItem
+        private abstract class FileSystemItem
         {
-            private string Name { get; }
-            public FileSystemItemType Type { get; }
-            private List<FileSystemItem> ChildItems { get; } = new List<FileSystemItem>();
-            public string Content { get; set; } = "";
+            private static readonly Directory Root;
+            private const char PathSeparator = '/';
+            public string Name { get; }
+            private Directory ParentDirectory { get; }
+            protected bool Exists { private get; set; }
 
-            public FileSystemItem(string name, FileSystemItemType type)
+            static FileSystemItem()
             {
-                Name = name;
-                Type = type;
+                Root = new Directory(null, null)
+                {
+                    Exists = true
+                };
             }
 
-            public FileSystemItem Find(string childName)
+            protected FileSystemItem(string name, Directory parentDirectory)
             {
-                switch (Type)
+                Name = name;
+                ParentDirectory = parentDirectory;
+            }
+
+            public static FileSystemItem Get(string path)
+            {
+                return Get<FileSystemItem>(path, (name, parentDirectory) => new Directory(name, parentDirectory));
+            }
+
+            protected static TFileSystemItem Get<TFileSystemItem>(string path, Func<string, Directory, TFileSystemItem> factory) where TFileSystemItem : FileSystemItem
+            {
+                if (path == null)
                 {
-                    case FileSystemItemType.File:
-                        return null;
-                    case FileSystemItemType.Directory:
-                        return ChildItems.FirstOrDefault(x => x.Name == childName);
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    throw new ArgumentNullException(nameof(path));
+                }
+
+                var wrongTypeException = new ArgumentException("Wrong type", nameof(path));
+
+                if (path == PathSeparator.ToString())
+                {
+                    if (Root is TFileSystemItem)
+                    {
+                        return Root as TFileSystemItem;
+                    }
+
+                    throw wrongTypeException;
+                }
+
+                var invalidPathException = new ArgumentException("Invalid path", nameof(path));
+
+                if (path == "" || path[0] != PathSeparator)
+                {
+                    throw invalidPathException;
+                }
+
+                string[] pathParts = path.Substring(1).Split(PathSeparator);
+
+                Directory directory = Root;
+
+                FileSystemItem child;
+                foreach (string directoryName in pathParts.Take(pathParts.Length - 1))
+                {
+                    child = directory.GetChildItem(directoryName);
+                    if (child == null)
+                    {
+                        directory = new Directory(directoryName, directory);
+                    }
+                    else if (child is Directory childDirectory)
+                    {
+                        directory = childDirectory;
+                    }
+                    else
+                    {
+                        throw wrongTypeException;
+                    }
+                }
+
+                string leafName = pathParts.Last();
+
+                child = directory.GetChildItem(leafName);
+                TFileSystemItem leaf = factory(leafName, directory);
+
+                if (child == null)
+                {
+                    return leaf;
+                }
+                else if (child is TFileSystemItem fileSystemItem)
+                {
+                    return fileSystemItem;
+                }
+                else
+                {
+                    throw wrongTypeException;
                 }
             }
 
             public string[] List()
             {
-                switch (Type)
+                if (!Exists)
                 {
-                    case FileSystemItemType.File:
-                        return new[] { Name };
-                    case FileSystemItemType.Directory:
-                        return ChildItems.Select(x => x.Name).OrderBy(x => x).ToArray();
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    return new string[] { };
                 }
+
+                return ListIfExists();
             }
 
-            public FileSystemItem Create(string childName, FileSystemItemType type)
+            protected abstract string[] ListIfExists();
+
+            public void Create()
             {
-                var childItem = new FileSystemItem(childName, type);
-                ChildItems.Add(childItem);
-                return childItem;
+                if (Exists)
+                {
+                    return;
+                }
+
+                ParentDirectory.Create();
+                ParentDirectory.ChildItems.Add(this);
+                Exists = true;
             }
         }
 
-        private enum FileSystemItemType
+        private class File : FileSystemItem
         {
-            File,
-            Directory
+            private File(string name, Directory parentDirectory) : base(name, parentDirectory)
+            {
+            }
+
+            public new static File Get(string path)
+            {
+                return Get(path, (name, parentDirectory) => new File(name, parentDirectory));
+            }
+
+            protected override string[] ListIfExists()
+            {
+                return new[] { Name };
+            }
+
+            public string Content { get; set; } = "";
+        }
+
+        private class Directory : FileSystemItem
+        {
+            public Directory(string name, Directory parentDirectory) : base(name, parentDirectory)
+            {
+            }
+
+            public List<FileSystemItem> ChildItems { get; } = new List<FileSystemItem>();
+
+            public new static Directory Get(string path)
+            {
+                return Get(path, (name, parentDirectory) => new Directory(name, parentDirectory));
+            }
+
+            protected override string[] ListIfExists()
+            {
+                return ChildItems.Select(x => x.Name).OrderBy(x => x).ToArray();
+            }
+
+            public FileSystemItem GetChildItem(string childName)
+            {
+                if (string.IsNullOrEmpty(childName))
+                {
+                    throw new ArgumentException("Invalid name", nameof(childName));
+                }
+
+                return ChildItems.FirstOrDefault(x => x.Name == childName);
+            }
         }
     }
 }
