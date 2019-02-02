@@ -39,6 +39,12 @@
             while (power <= n)
             {
                 powersOfTwo[i] = powersOfTwo[i - 1] * powersOfTwo[i - 1];
+
+                if (powersOfTwo[i] == 0)
+                {
+                    return 0;
+                }
+
                 power *= 2;
                 i++;
             }
