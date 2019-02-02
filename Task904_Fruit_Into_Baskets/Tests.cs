@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace AlgoSolving.Task904_Fruit_Into_Baskets
 {
@@ -26,6 +27,13 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
         public void AcceptanceTest4()
         {
             Assert.That(new Solution().TotalFruit(new[] { 3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4 }), Is.EqualTo(5));
+        }
+
+        [Test]
+        [Timeout(1000)]
+        public void Many_same_items()
+        {
+            Assert.That(new Solution().TotalFruit(Enumerable.Repeat(0, 10000).ToArray()), Is.EqualTo(1000));
         }
     }
 }
