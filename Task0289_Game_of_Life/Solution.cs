@@ -4,22 +4,15 @@
     {
         public void GameOfLife(int[][] board)
         {
-            const int aliveState = 1;
-            const int deadState = 0;
-
             int rowCount = board.Length;
             int columnCount = board[0].Length;
-
-            var aliveNeighborsCounts = new int[rowCount, columnCount];
 
             for (int row = 0; row < rowCount; row++)
             {
                 for (int column = 0; column < columnCount; column++)
                 {
-                    if (board[row][column] != aliveState)
-                    {
-                        continue;
-                    }
+                    bool wasAlive = WasAlive(board, row, column);
+                    int aliveNeighborsCount = 0;
 
                     for (int neighborRow = row - 1; neighborRow <= row + 1; neighborRow++)
                     {
@@ -31,46 +24,65 @@
                                 continue;
                             }
 
-                            aliveNeighborsCounts[neighborRow, neighborColumn]++;
+                            if (WasAlive(board, neighborRow, neighborColumn))
+                            {
+                                aliveNeighborsCount++;
+                            }
                         }
                     }
+
+                    board[row][column] = (int) GetNextAliveState(wasAlive, aliveNeighborsCount);
                 }
             }
-
             for (int row = 0; row < rowCount; row++)
             {
                 for (int column = 0; column < columnCount; column++)
                 {
-                    var isAlive = board[row][column] == aliveState;
-
-                    board[row][column] = IsAliveNextStep(isAlive, aliveNeighborsCounts[row, column]) ? aliveState : deadState;
+                    board[row][column] = (int) (
+                        WasAlive(board, row, column)
+                            ? State.WasAliveBecameAlive
+                            : State.WasDeadBecameDead);
                 }
             }
         }
 
-        private static bool IsAliveNextStep(bool isAlive, int aliveNeighborsCount)
+        private static bool WasAlive(int[][] board, int row, int column)
         {
-            if (isAlive && aliveNeighborsCount < 2)
+            State state = (State) board[row][column];
+            return state == State.WasAliveBecameAlive || state == State.WasAliveBecameDead;
+        }
+
+        private static State GetNextAliveState(bool wasAlive, int aliveNeighborsCount)
+        {
+            if (wasAlive && aliveNeighborsCount < 2)
             {
-                return false;
+                return State.WasAliveBecameDead;
             }
 
-            if (isAlive && (aliveNeighborsCount == 2 || aliveNeighborsCount == 3))
+            if (wasAlive && (aliveNeighborsCount == 2 || aliveNeighborsCount == 3))
             {
-                return true;
+                return State.WasAliveBecameAlive;
             }
 
-            if (isAlive && aliveNeighborsCount > 3)
+            if (wasAlive && aliveNeighborsCount > 3)
             {
-                return false;
+                return State.WasAliveBecameDead;
             }
 
-            if (!isAlive && aliveNeighborsCount == 3)
+            if (!wasAlive && aliveNeighborsCount == 3)
             {
-                return true;
+                return State.WasDeadBecameAlive;
             }
 
-            return isAlive;
+            return State.WasDeadBecameDead;
+        }
+
+        private enum State
+        {
+            WasDeadBecameDead = 0,
+            WasAliveBecameAlive = 1,
+            WasDeadBecameAlive = 2,
+            WasAliveBecameDead = 3
         }
     }
 }
