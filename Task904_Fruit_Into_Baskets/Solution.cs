@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoSolving.Task904_Fruit_Into_Baskets
 {
@@ -13,24 +14,45 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                 return tree.Length;
             }
 
-            var maxFruitCount = basketCount;
+            var fruitTypeCounts = new Dictionary<int, int>();
+            var startTreeIndex = 0;
+            var endTreeIndex = 0;
 
-            for (int i = 0; i < tree.Length; i++)
+            var maxFruitCount = 0;
+
+            while (endTreeIndex < tree.Length)
             {
-                var fruitCount = 0;
-                var fruitTypes = new HashSet<int>();
-                for (int j = i; j < tree.Length; j++)
+                while (fruitTypeCounts.Keys.Count == basketCount)
                 {
-                    fruitTypes.Add(tree[j]);
-                    if (fruitTypes.Count > basketCount)
+                    var fruitType = tree[startTreeIndex];
+
+                    fruitTypeCounts[fruitType]--;
+                    if (fruitTypeCounts[fruitType] == 0)
                     {
-                        break;
+                        fruitTypeCounts.Remove(fruitType);
                     }
 
-                    fruitCount++;
+                    startTreeIndex++;
                 }
 
-                maxFruitCount = Math.Max(maxFruitCount, fruitCount);
+                while (endTreeIndex < tree.Length)
+                {
+                    var fruitType = tree[endTreeIndex];
+                    endTreeIndex++;
+                    if (!fruitTypeCounts.ContainsKey(fruitType))
+                    {
+                        if (fruitTypeCounts.Keys.Count == basketCount)
+                        {
+                            break;
+                        }
+
+                        fruitTypeCounts[fruitType] = 0;
+                    }
+
+                    fruitTypeCounts[fruitType]++;
+                }
+
+                maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
             }
 
             return maxFruitCount;
