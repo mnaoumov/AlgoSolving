@@ -29,16 +29,33 @@
                 return MyPow(1 / x, -n);
             }
 
-            var result = 1m;
-            for (int i = 0; i < n; i++)
-            {
-                if (result == 0m)
-                {
-                    break;
-                }
+            const int maxPowerOfTwo = 31;
+            var powersOfTwo = new decimal[maxPowerOfTwo];
+            powersOfTwo[0] = x;
 
-                result *= x;
+            var power = 1;
+            int i = 1;
+
+            while (power <= n)
+            {
+                powersOfTwo[i] = powersOfTwo[i - 1] * powersOfTwo[i - 1];
+                power *= 2;
+                i++;
             }
+
+            var result = 1m;
+            i = 0;
+
+            while (n > 0)
+            {
+                if (n % 2 == 1)
+                {
+                    result *= powersOfTwo[i];
+                }
+                n /= 2;
+                i++;
+            }
+
 
             return result;
         }
