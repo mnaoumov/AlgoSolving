@@ -28,5 +28,12 @@ namespace AlgoSolving.Task0050_Pow_x_n
         {
             Assert.That(new Solution().MyPow(0.00001, int.MaxValue), Is.EqualTo(0.0));
         }
+
+        [Test]
+        [Timeout(1000)]
+        public void One()
+        {
+            Assert.That(new Solution().MyPow(1.0, int.MaxValue), Is.EqualTo(1.0));
+        }
     }
 }
