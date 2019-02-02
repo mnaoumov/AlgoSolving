@@ -43,6 +43,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     {
                         if (fruitTypeCounts.Keys.Count == basketCount)
                         {
+                            endTreeIndex--;
                             break;
                         }
 
