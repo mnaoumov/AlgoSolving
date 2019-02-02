@@ -38,12 +38,10 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                 while (endTreeIndex < tree.Length)
                 {
                     var fruitType = tree[endTreeIndex];
-                    endTreeIndex++;
                     if (!fruitTypeCounts.ContainsKey(fruitType))
                     {
                         if (fruitTypeCounts.Keys.Count == basketCount)
                         {
-                            endTreeIndex--;
                             break;
                         }
 
@@ -51,6 +49,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     }
 
                     fruitTypeCounts[fruitType]++;
+                    endTreeIndex++;
                 }
 
                 maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
