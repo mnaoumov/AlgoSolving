@@ -28,7 +28,7 @@ namespace AlgoSolving.Task0289_Game_of_Life
                         for (int neighborColumn = column - 1; neighborColumn <= column + 1; neighborColumn++)
                         {
                             if (neighborRow < 0 || neighborRow >= rowCount || neighborColumn < 0 ||
-                                neighborColumn > columnCount || (neighborRow == row && neighborColumn == column))
+                                neighborColumn >= columnCount || (neighborRow == row && neighborColumn == column))
                             {
                                 continue;
                             }
