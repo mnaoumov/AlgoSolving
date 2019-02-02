@@ -42,6 +42,7 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     {
                         if (fruitTypeCounts.Keys.Count == basketCount)
                         {
+                            maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
                             break;
                         }
 
@@ -51,9 +52,9 @@ namespace AlgoSolving.Task904_Fruit_Into_Baskets
                     fruitTypeCounts[fruitType]++;
                     endTreeIndex++;
                 }
-
-                maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
             }
+
+            maxFruitCount = Math.Max(maxFruitCount, fruitTypeCounts.Values.Sum());
 
             return maxFruitCount;
         }
