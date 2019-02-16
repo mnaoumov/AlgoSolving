@@ -4,9 +4,9 @@
 
 Medium
 
-Given a **non-empty** array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
+Given a **non-empty** array of numbers, a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, … , a<sub>n-1</sub>, where 0 ≤ a<sub>i</sub> < 2<sup>31</sup>.
 
-Find the maximum result of ai XOR aj, where 0 ≤ *i*, *j* < *n*.
+Find the maximum result of ai XOR a<sub>j</sub>, where 0 ≤ *i*, *j* < *n*.
 
 Could you do this in O(*n*) runtime?
 
