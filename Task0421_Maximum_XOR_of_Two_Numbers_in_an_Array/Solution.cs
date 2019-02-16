@@ -2,6 +2,8 @@
 {
     public class Solution
     {
+        // ReSharper disable once MemberCanBeMadeStatic.Global
+        // ReSharper disable once InconsistentNaming
         public int FindMaximumXOR(int[] nums)
         {
             return 0;

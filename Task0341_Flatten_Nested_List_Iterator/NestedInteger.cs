@@ -6,6 +6,7 @@ namespace AlgoSolving.Task0341_Flatten_Nested_List_Iterator
     /// This is the interface that allows for creating nested lists.
     /// You should not implement it, or speculate about its implementation
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public interface NestedInteger
     {
         /// <summary>

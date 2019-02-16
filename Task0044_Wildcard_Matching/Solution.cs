@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AlgoSolving.Task0044_Wildcard_Matching
+﻿namespace AlgoSolving.Task0044_Wildcard_Matching
 {
     public class Solution
     {

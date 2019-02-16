@@ -5,7 +5,9 @@
     /// </summary>
     public class Interval
     {
+        // ReSharper disable once InconsistentNaming
         public int start;
+        // ReSharper disable once InconsistentNaming
         public int end;
 
         public Interval()
