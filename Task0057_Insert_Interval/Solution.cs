@@ -36,6 +36,7 @@ namespace AlgoSolving.Task0057_Insert_Interval
                 if (previousInterval.end >= newInterval.start)
                 {
                     newInterval.start = previousInterval.start;
+                    newInterval.end = Math.Max(newInterval.end, previousInterval.end);
                     result.RemoveAt(newIntervalIndex - 1);
                     newIntervalIndex--;
                 }
