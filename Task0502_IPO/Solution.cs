@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgoSolving.Task0502_IPO
 {
@@ -11,38 +13,40 @@ namespace AlgoSolving.Task0502_IPO
             var companyCapital = W;
             var n = Capital.Length;
             var projectsTakenIndices = new HashSet<int>();
+            var projects = new List<Project>();
+
+            for (int i = 0; i < n; i++)
+            {
+                projects.Add(new Project
+                {
+                    Capital = Capital[i],
+                    Profit = Profits[i]
+                });
+            }
+
+            projects = projects.OrderByDescending(p => p.Profit).ThenBy(p => p.Capital).ToList();
 
             for (int i = 0; i < k; i++)
             {
-                const int noProjectIndex = -1;
-                var bestProjectIndex = noProjectIndex;
-                var bestProfit = 0;
                 for (int j = 0; j < n; j++)
                 {
-                    if (projectsTakenIndices.Contains(j) || Capital[j] > companyCapital)
+                    var project = projects[j];
+                    if (project.Capital <= companyCapital)
                     {
-                        continue;
-                    }
-
-                    var profit = Profits[j];
-
-                    if (profit > bestProfit)
-                    {
-                        bestProfit = profit;
-                        bestProjectIndex = j;
+                        companyCapital += project.Profit;
+                        projects.RemoveAt(j);
+                        break;
                     }
                 }
-
-                if (bestProjectIndex == noProjectIndex)
-                {
-                    break;
-                }
-
-                projectsTakenIndices.Add(bestProjectIndex);
-                companyCapital += bestProfit;
             }
 
             return companyCapital;
+        }
+
+        private struct Project
+        {
+            public int Capital;
+            public int Profit;
         }
     }
 }
