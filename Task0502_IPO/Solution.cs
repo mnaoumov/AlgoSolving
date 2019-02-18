@@ -27,15 +27,23 @@ namespace AlgoSolving.Task0502_IPO
 
             for (int i = 0; i < k; i++)
             {
-                for (int j = 0; j < n; j++)
+                var found = false;
+
+                for (int j = 0; j < projects.Count; j++)
                 {
                     var project = projects[j];
                     if (project.Capital <= companyCapital)
                     {
                         companyCapital += project.Profit;
                         projects.RemoveAt(j);
+                        found = true;
                         break;
                     }
+                }
+
+                if (!found)
+                {
+                    break;
                 }
             }
 
