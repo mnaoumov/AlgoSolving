@@ -42,7 +42,7 @@ namespace AlgoSolving.Task0057_Insert_Interval
                 }
             }
 
-            for (int i = newIntervalIndex + 1; i < result.Count; i++)
+            while (newIntervalIndex + 1 < result.Count)
             {
                 var nextInterval = result[newIntervalIndex + 1];
                 if (nextInterval.start <= newInterval.end)
