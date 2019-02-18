@@ -33,5 +33,11 @@ namespace AlgoSolving.Task0057_Insert_Interval
             return interval1.start == interval2.start && interval1.end == interval2.end;
         }
 
+        [Test]
+        public void Inserted_includes_in_previous()
+        {
+            Assert.That(new Solution().Insert(new[] { new Interval(1, 5) }, new Interval(2, 3)),
+                Is.EquivalentTo(new[] { new Interval(1, 5) }).Using<Interval, Interval>(IntervalComparer));
+        }
     }
 }
