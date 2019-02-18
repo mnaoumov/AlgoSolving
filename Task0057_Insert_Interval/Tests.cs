@@ -39,5 +39,12 @@ namespace AlgoSolving.Task0057_Insert_Interval
             Assert.That(new Solution().Insert(new[] { new Interval(1, 5) }, new Interval(2, 3)),
                 Is.EquivalentTo(new[] { new Interval(1, 5) }).Using<Interval, Interval>(IntervalComparer));
         }
+
+        [Test]
+        public void AcceptanceTest3()
+        {
+            Assert.That(new Solution().Insert(new[] { new Interval(1, 5), new Interval(6, 8) }, new Interval(0, 9)),
+                Is.EquivalentTo(new[] { new Interval(0, 9) }).Using<Interval, Interval>(IntervalComparer));
+        }
     }
 }
